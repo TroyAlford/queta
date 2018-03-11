@@ -32,6 +32,10 @@ if (!STORYBOOK) {
     disable: STORYBOOK,
     filename: 'react-glaemscribe.css',
   }))
+  Object.assign(externals, {
+    'react-dom': 'ReactDOM',
+    react: 'React',
+  })
 }
 
 module.exports = {
