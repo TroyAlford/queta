@@ -4,7 +4,8 @@ const replace = require('gulp-replace')
 
 const PATH = {
   JS: './node_modules/glaemscribe/build/web/glaemscribe/js',
-  FONT: './node_modules/glaemscribe/fonts/webs',
+  ADDED_FONTS: './vendor/fonts',
+  INCLUDED_FONTS: './node_modules/glaemscribe/fonts/webs',
 }
 
 gulp.task('default', ['shim-js', 'copy-fonts'])
@@ -26,10 +27,14 @@ gulp.task('shim-js', () => (
 
     `${PATH.JS}/modes/adunaic.glaem.js`,
     `${PATH.JS}/modes/blackspeech.glaem.js`,
+    `${PATH.JS}/modes/futhark-runicus.glaem.js`,
+    `${PATH.JS}/modes/futhark-younger.glaem.js`,
+    `${PATH.JS}/modes/futhorc.glaem.js`,
+    `${PATH.JS}/modes/gothic.glaem.js`,
+    `${PATH.JS}/modes/khuzdul.glaem.js`,
     `${PATH.JS}/modes/mercian.glaem.js`,
     `${PATH.JS}/modes/quenya-sarati.glaem.js`,
     `${PATH.JS}/modes/quenya.glaem.js`,
-    `${PATH.JS}/modes/raw-tengwar.glaem.js`,
     `${PATH.JS}/modes/rlyehian.glaem.js`,
     `${PATH.JS}/modes/sindarin-beleriand.glaem.js`,
     `${PATH.JS}/modes/sindarin-daeron.glaem.js`,
@@ -46,14 +51,18 @@ gulp.task('shim-js', () => (
 
 gulp.task('copy-fonts', () => (
   gulp.src([
-    `${PATH.FONT}/sarati-eldamar-rtlb-glaemscrafu.{eot,svg,ttf,woff}`,
-    `${PATH.FONT}/tengwar-annatar-glaemscrafu-bold.{eot,svg,ttf,woff}`,
-    `${PATH.FONT}/tengwar-annatar-glaemscrafu-italic.{eot,svg,ttf,woff}`,
-    `${PATH.FONT}/tengwar-annatar-glaemscrafu.{eot,svg,ttf,woff}`,
-    `${PATH.FONT}/tengwar-eldamar-glaemscrafu.{eot,svg,ttf,woff}`,
-    `${PATH.FONT}/tengwar-elfica-glaemscrafu.{eot,svg,ttf,woff}`,
-    `${PATH.FONT}/tengwar-parmaite-glaemscrafu.{eot,svg,ttf,woff}`,
-    `${PATH.FONT}/tengwar-sindarin-glaemscrafu.{eot,svg,ttf,woff}`,
+    `${PATH.ADDED_FONTS}/analecta-glaemscrafu.{eot,svg,ttf,woff}`,
+    `${PATH.ADDED_FONTS}/erebor.{eot,svg,ttf,woff}`,
+    `${PATH.ADDED_FONTS}/freemonotengwar-embedding.{eot,svg,ttf,woff}`,
+    `${PATH.ADDED_FONTS}/pfeffermediaeval.{eot,svg,ttf,woff}`,
+    `${PATH.INCLUDED_FONTS}/sarati-eldamar-rtlb-glaemscrafu.{eot,svg,ttf,woff}`,
+    `${PATH.INCLUDED_FONTS}/tengwar-annatar-glaemscrafu-bold.{eot,svg,ttf,woff}`,
+    `${PATH.INCLUDED_FONTS}/tengwar-annatar-glaemscrafu-italic.{eot,svg,ttf,woff}`,
+    `${PATH.INCLUDED_FONTS}/tengwar-annatar-glaemscrafu.{eot,svg,ttf,woff}`,
+    `${PATH.INCLUDED_FONTS}/tengwar-eldamar-glaemscrafu.{eot,svg,ttf,woff}`,
+    `${PATH.INCLUDED_FONTS}/tengwar-elfica-glaemscrafu.{eot,svg,ttf,woff}`,
+    `${PATH.INCLUDED_FONTS}/tengwar-parmaite-glaemscrafu.{eot,svg,ttf,woff}`,
+    `${PATH.INCLUDED_FONTS}/tengwar-sindarin-glaemscrafu.{eot,svg,ttf,woff}`,
   ]).pipe(gulp.dest('./vendor/build/fonts'))
 ))
 
