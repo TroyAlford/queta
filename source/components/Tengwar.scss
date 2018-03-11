@@ -1,0 +1,19 @@
+@import '../../vendor/glaemscribe.css';
+
+.tengwar {
+  line-height: 1.5em;
+
+  &.annatar, &.tengwar-annatar, &.tengwar_ds_annatar { font-family: 'Tengwar Annatar'; }
+  &.cirth, &.cirth_ds { }
+  &.eldamar, &.tengwar-eldamar, &.tengwar_ds_eldamar { font-family: 'Tengwar Eldamar'; }
+  &.elfica, &.tengwar-elfica, &.tengwar_ds_elfica { font-family: 'Tengwar Elfica'; }
+  &.freemono, &.tengwar-freemono, &.tengwar_freemono { }
+  &.gothic, &.unicode-gothic, &.unicode_gothic { }
+  &.parmaite, &.tengwar-parmaite, &.tengwar_ds_parmaite { font-family: 'Tengwar Parmaite'; }
+  &.runes, &.unicode-runes, &.unicode_runes { }
+  &.sarati, &.sarati-eldamar, &.sarati_eldamar { font-family: 'Sarati Eldamar'; }
+  &.sindarin, &.tengwar-sindarin, &.tengwar_ds_sindarin { font-family: 'Tengwar Sindarin'; }
+
+  /* needs to go last, to override */
+  &.blackspeech { font-family: 'Tengwar Annatar Italic'; font-style: italic, oblique; }
+}
