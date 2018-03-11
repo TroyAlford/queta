@@ -22,10 +22,7 @@ if (PRODUCTION) {
     })
   )
   Object.assign(externals, {
-    'mobx-react': 'mobx-react',
-    'mobx-state-tree': 'mobx-state-tree',
     'react-dom': 'react-dom',
-    mobx: 'mobx',
     react: 'react',
   })
 }
