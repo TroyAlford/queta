@@ -1,0 +1,55 @@
+{
+  "name": "react-glaemscribe",
+  "version": "0.0.1",
+  "description": "A reactjs component to render J.R.R. Tokein languages using Glaemscribe",
+  "main": "index.js",
+  "repository": "git@github.com:TroyAlford/react-glaemscribe.git",
+  "author": "Troy Alford <troy@troyalford.com>",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "glaemscribe": "TroyAlford/glaemscribe"
+  },
+  "peerDependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^3.3.15",
+    "@storybook/addon-knobs": "^3.3.15",
+    "@storybook/addon-links": "^3.3.15",
+    "@storybook/addons": "^3.3.15",
+    "@storybook/react": "^3.3.15",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-jest": "^22.4.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.10",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-replace": "^0.6.1",
+    "jest": "^22.4.2",
+    "jest-cli": "^22.4.2",
+    "node-sass": "^4.7.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.1.1"
+  },
+  "scripts": {
+    "build-storybook": "build-storybook",
+    "prestorybook": "yarn gulp",
+    "storybook": "STORYBOOK=true start-storybook -p 6006"
+  }
+}
