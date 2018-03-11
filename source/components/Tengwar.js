@@ -6,45 +6,47 @@ Glaemscribe.resource_manager.load_modes()
 Glaemscribe.resource_manager.load_charsets()
 if (!window.Glaemscribe) window.Glaemscribe = Glaemscribe;
 
-const CHARSETS = {
-  annatar: "tengwar_ds_annatar",
-  cirth: "cirth_ds",
-  eldamar: "tengwar_ds_eldamar",
-  elfica: "tengwar_ds_elfica",
-  freemono: "tengwar_freemono",
-  gothic: "unicode_gothic",
-  parmaite: "tengwar_ds_parmaite",
-  runes: "unicode_runes",
-  sarati: "sarati_eldamar",
-  sindarin: "tengwar_ds_sindarin",
-}
+const modes = Glaemscribe.resource_manager.loaded_modes
+export const MODES = Object.values(modes)
+  .map(mode => ({
+    charsets: mode.supported_charsets,
+    humanName: mode.human_name,
+    language: mode.language,
+    languageClass: `language-${mode.name}`,
+    name: mode.name,
+    writing: mode.writing,
+    writingClass: `writing-${mode.writing.toLowerCase()}`,
+
+    transcriber: modes[mode.name]
+  }))
+
+window.MODES = MODES;
 
 export default class Tengwar extends Component {
   static defaultProps = {
-    charset: 'elfica',
+    bold: false,
+    italic: false,
     language: 'quenya',
+    writing: 'Runes',
     tagName: 'span',
+    typeface: 'elfica',
   }
 
-  componentWillMount = () => { this.updateParsers(this.props) }
-  componentWillReceiveProps = (props) => { this.updateParsers(props) }
-
-  updateParsers = ({ charset, language }) => {
-    this.language = Glaemscribe.resource_manager.loaded_modes[language]
-
-    let charsets = Object.keys(Glaemscribe.resource_manager.loaded_charsets)
-    if (this.language) charsets = Object.keys(this.language.supported_charsets)
-
-    if (charsets.includes(charset)) {
-      this.charset = Glaemscribe.resource_manager.loaded_charsets[charset]
-      this.charsetName = charset
-    } else {
-      this.charset = Glaemscribe.resource_manager.loaded_charsets[charsets[0]]
-      this.charsetName = charsets[0]
-    }
+  get language() {
+    return (
+      MODES.find(m => m.name === this.props.language && m.writing === this.props.writing) ||
+      MODES.find(m => m.name === this.props.language) ||
+      MODES[0]
+    )
+  }
+  get charset() {
+    return (
+      this.language.charsets[this.props.charset] ||
+      Object.values(this.language.charsets)[0]
+    )
   }
 
-  transcribe = (text) => this.language ? this.language.transcribe(text, this.charset) : text
+  transcribe = (text) => this.language.transcriber.transcribe(text, this.charset)
   renderTextNodes = () => {
     const { children = [] } = this.props
     const nodes = typeof children === 'string' ? [children] : Array.from(children)
@@ -56,11 +58,17 @@ export default class Tengwar extends Component {
     })
   }
   render = () => {
-    const { children, language, tagName: Tag } = this.props
-    return (
-      <Tag className={`tengwar ${language} ${this.charsetName}`}>
-        {this.renderTextNodes()}
-      </Tag>
-    )
+    const { bold, italic, children, tagName: Tag, typeface } = this.props
+    const language = this.language
+    const classes = [
+      'glaemscribe',
+      language.languageClass,
+      language.writingClass,
+      `typeface-${typeface}`,
+      bold && 'bold',
+      italic && 'italic',
+    ].filter(Boolean)
+
+    return (<Tag className={classes.join(' ')}>{this.renderTextNodes()}</Tag>)
   }
 }
