@@ -26,8 +26,8 @@ const WRITING_OPTIONS = {
   tengwar: 'Tengwar',
 }
 
-const DEFAULT_TEXT = `
-Ai ! laurië lantar lassi súrinen ,
+const DEFAULT_TEXT =
+  `Ai ! laurië lantar lassi súrinen ,
 yéni únótimë ve rámar aldaron !
 Yéni ve lintë yuldar avánier
 mi oromardi lissë-miruvóreva
@@ -35,15 +35,15 @@ Andúnë pella , Vardo tellumar
 nu luini yassen tintilar i eleni
 ómaryo airetári-lírinen .
 
-Sí man i yulma nin enquantuva ?
-`
+Sí man i yulma nin enquantuva ?`
 
 stories.add('Full Example', () => (
   <Tengwar
+    tagName="pre"
     children={text('Text', DEFAULT_TEXT, 'foo')}
-    language={select('Language', LANGUAGES, 'Quenya', 'foo')}
-    typeface={select('Typeface', TYPEFACE_OPTIONS, 'Tengwar Elfica', 'foo')}
-    writing={select('Writing', WRITING_OPTIONS, 'Tengwar', 'foo')}
+    language={select('Language', LANGUAGES, 'quenya', 'foo')}
+    typeface={select('Typeface', TYPEFACE_OPTIONS, 'eldamar', 'foo')}
+    writing={select('Writing', WRITING_OPTIONS, 'tengwar', 'foo')}
     options={{
       always_use_romen_for_r: true,
       split_diphthongs: true,
