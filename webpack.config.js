@@ -21,10 +21,6 @@ if (PRODUCTION) {
       sourceMap: SOURCEMAP,
     })
   )
-  Object.assign(externals, {
-    'react-dom': 'react-dom',
-    react: 'react',
-  })
 }
 if (!STORYBOOK) {
   plugins.push(new ExtractTextPlugin({
@@ -32,10 +28,9 @@ if (!STORYBOOK) {
     disable: STORYBOOK,
     filename: 'react-glaemscribe.css',
   }))
-  Object.assign(externals, {
-    'react-dom': 'ReactDOM',
-    react: 'React',
-  })
+  Object.assign(externals, { react: 'react' })
+} else {
+  Object.assign(externals, { react: 'React' })
 }
 
 module.exports = {
@@ -44,12 +39,15 @@ module.exports = {
   externals,
   module: {
     rules: [{
+      test: /\.(woff2?|eot|ttf|svg)#?/,
+      loader: 'url-loader?limit=100000',
+      options: {
+        name: 'css/assets/[name].[ext]',
+      }
+    }, {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader',
-    }, {
-      test: /\.(woff2?|eot|ttf|svg)$/,
-      loader: 'url-loader?limit=100000',
     }, {
       test: /\.s?css$/,
       use: STORYBOOK
