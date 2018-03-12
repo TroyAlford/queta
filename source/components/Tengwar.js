@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Glaemscribe from '../../vendor/build/glaemscribe'
 import './Tengwar.scss'
 
@@ -47,13 +47,25 @@ export default class Tengwar extends Component {
   }
 
   transcribe = (text) => this.language.transcriber.transcribe(text, this.charset)
-  renderTextNodes = () => {
-    const { children = [] } = this.props
-    const nodes = typeof children === 'string' ? [children] : Array.from(children)
-    return nodes.map(child => {
-      if (typeof child !== 'string') return child
-      let [success, transcription, context] = this.transcribe(child)
-      if (success) return transcription
+  transcribeChildren = nodes => {
+    const children = Array.isArray(nodes) ? nodes : [nodes]
+
+    return children.map((child, index) => {
+      if (typeof child === 'string') {
+        const [success, transcription] = this.transcribe(child)
+        if (success) return transcription
+      }
+
+      if (child && child.props && child.props.children) {
+        const grandChildren = child.props.children
+        const Type = child.type
+        return (
+          <Type key={index} {...child.props}>
+            {this.transcribeChildren(Array.isArray(grandChildren) ? grandChildren : [grandChildren])}
+          </Type>
+        )
+      }
+
       return child
     })
   }
@@ -69,6 +81,6 @@ export default class Tengwar extends Component {
       italic && 'italic',
     ].filter(Boolean)
 
-    return (<Tag className={classes.join(' ')}>{this.renderTextNodes()}</Tag>)
+    return (<Tag className={classes.join(' ')}>{this.transcribeChildren(children)}</Tag>)
   }
 }
