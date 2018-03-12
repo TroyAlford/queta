@@ -1,6 +1,6 @@
 {
   "name": "react-glaemscribe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A reactjs component to render J.R.R. Tokein languages using Glaemscribe",
   "main": "source/index.js",
   "repository": "git@github.com:TroyAlford/react-glaemscribe.git",
