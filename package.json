@@ -52,12 +52,8 @@
   "scripts": {
     "build-prod": "NODE_ENV=production yarn build",
     "build": "yarn webpack",
-    "deploy-storybook": "STORYBOOK=true storybook-to-ghpages",
     "postversion": "git push origin HEAD && git push origin HEAD --tags",
     "prebuild": "rm -rf build/ vendor/build && yarn gulp",
-    "predeploy-storybook": "yarn gulp",
-    "prepublish": "yarn deploy-storybook",
-    "prestorybook": "yarn gulp",
     "preversion": "yarn build & yarn build-prod && git add -A ./build",
     "storybook": "STORYBOOK=true start-storybook -p 6006",
     "test": "jest"
