@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"allowJs": false,
+		"checkJs": false,
+		"esModuleInterop": true,
+		"jsx": "react",
+		"moduleResolution": "node",
+		"target": "ESNext"
+	}
+}

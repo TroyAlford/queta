@@ -1,18 +1,11 @@
-/* eslint-disable no-undef */
-const glob = require('glob')
+/* eslint-disable @typescript-eslint/no-var-requires,global-require,no-undef */
 const path = require('path')
-const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
 
 const ENVIRONMENT = process.env.NODE_ENV
 const PRODUCTION = ENVIRONMENT === 'production'
 const SOURCEMAP = !PRODUCTION || process.env.SOURCEMAP
-
-const PATH = {
-  JS: './node_modules/glaemscribe/build/web/glaemscribe/js',
-  ADDED_FONTS: './vendor/fonts',
-  INCLUDED_FONTS: './node_modules/glaemscribe/fonts/build/webs',
-}
 
 const include = [
 	/node_modules\/glaemscribe/,
@@ -22,33 +15,38 @@ const include = [
 
 module.exports = {
 	devtool: SOURCEMAP ? 'source-map' : 'none',
-	entry: [
-		...glob.sync(`${PATH.INCLUDED_FONTS}/*.css`),
-		`${__dirname}/source/index.js`,
-	],
+	entry: `${__dirname}/source/index.ts`,
 	externals: {
-		react: 'react',
+		react: 'React',
 		'react-dom': 'ReactDOM',
 	},
 	module: {
 		rules: [{
-			test: /\.js$/,
 			exclude: /node_modules/,
 			loader: 'babel-loader',
+			test: /\.js$/,
 		}, {
-			test: /\.s?css$/, include,
+			include,
+			test: /\.s?css$/,
 			use: [
 				{ loader: MiniCssExtractPlugin.loader, options: { hmr: !PRODUCTION } },
 				'css-loader',
-				{ loader: 'sass-loader', options: { implementation: require('sass'), sassOptions: { fiber: require('fibers') } } },
+				{ loader: 'sass-loader',
+					options: {
+						implementation: require('sass'),
+						sassOptions: { fiber: require('fibers') },
+					},
+				},
 			],
 		}, {
-			test: /\.(woff2?|eot|ttf|svg)#?/, include,
-			loader: 'url-loader',
+			include,
+			loader: 'file-loader',
 			options: {
-				name: 'assets/[name].[ext]',
 				limit: 100000,
-			}
+				name: 'assets/[name].[ext]',
+				outputPath: 'fonts/',
+			},
+			test: /\.(woff2?|eot|ttf|svg)#?/,
 		}],
 	},
 	output: {
@@ -82,7 +80,7 @@ module.exports = {
 		alias: {
 			'@': path.resolve(__dirname, 'source/'),
 		},
-		extensions: ['.css', '.js', '.scss'],
+		extensions: ['.css', '.js', '.scss', '.ts', '.tsx'],
 		modules: ['node_modules'],
 	},
 	stats: {

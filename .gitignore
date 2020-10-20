@@ -1,2 +1,6 @@
-node_modules
-yarn-error.log
+**/.cache
+**/dist
+**/docs/build
+**/node_modules
+**/temp
+**/yarn-error.log
