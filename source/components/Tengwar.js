@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from 'react'
-import Glaemscribe from '../../vendor/build/glaemscribe'
-import './Tengwar.scss'
+import React, { Component } from 'react'
+import Glaemscribe from '../../dist/glaemscribe.built'
 
 Glaemscribe.resource_manager.load_modes()
 Glaemscribe.resource_manager.load_charsets()
@@ -23,7 +22,12 @@ export const MODES = Object.values(modes)
 window.MODES = MODES;
 
 export default class Tengwar extends Component {
-  static defaultProps = {
+	#styles = Promise.all([
+		import('./Tengwar.scss'),
+		import('../../vendor/glaemscribe.scss'),
+	])
+
+	static defaultProps = {
     bold: false,
     italic: false,
     language: 'quenya',

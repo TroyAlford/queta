@@ -1,36 +1,36 @@
 @font-face {
   font-family: 'Analecta';
-  src: url('build/fonts/analecta-glaemscrafu.eot');
-  src: url('build/fonts/analecta-glaemscrafu.eot?#iefix') format('embedded-opentype'),
-       url('build/fonts/analecta-glaemscrafu.woff') format('woff'),
-       url('build/fonts/analecta-glaemscrafu.ttf') format('truetype'),
-       url('build/fonts/analecta-glaemscrafu.svg#analecta_glaemscrafuregular') format('svg');
+  src: url('./fonts/analecta-glaemscrafu.eot');
+  src: url('./fonts/analecta-glaemscrafu.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/analecta-glaemscrafu.woff') format('woff'),
+       url('./fonts/analecta-glaemscrafu.ttf') format('truetype'),
+       url('./fonts/analecta-glaemscrafu.svg#analecta_glaemscrafuregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Cirth Erebor';
-  src: url('build/fonts/erebor.eot');
-  src: url('build/fonts/erebor.eot?#iefix') format('embedded-opentype'),
-       url('build/fonts/erebor.woff') format('woff'),
-       url('build/fonts/erebor.ttf') format('truetype'),
-       url('build/fonts/erebor.svg#cirth_ereborregular') format('svg');
+  src: url('./fonts/erebor.eot');
+  src: url('./fonts/erebor.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/erebor.woff') format('woff'),
+       url('./fonts/erebor.ttf') format('truetype'),
+       url('./fonts/erebor.svg#cirth_ereborregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Pfeffer Mediaeval';
-  src: url('build/fonts/pfeffermediaeval.eot');
-  src: url('build/fonts/pfeffermediaeval.eot?#iefix') format('embedded-opentype'),
-       url('build/fonts/pfeffermediaeval.woff') format('woff'),
-       url('build/fonts/pfeffermediaeval.ttf') format('truetype'),
-       url('build/fonts/pfeffermediaeval.svg#pfeffer_mediavalregular') format('svg');
+  src: url('./fonts/pfeffermediaeval.eot');
+  src: url('./fonts/pfeffermediaeval.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/pfeffermediaeval.woff') format('woff'),
+       url('./fonts/pfeffermediaeval.ttf') format('truetype'),
+       url('./fonts/pfeffermediaeval.svg#pfeffer_mediavalregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
-
+/*
 @font-face {
     font-family: 'Sarati Eldamar';
     src: url('build/fonts/sarati-eldamar-rtlb-glaemscrafu.eot');
@@ -115,4 +115,4 @@
          url('build/fonts/tengwar-sindarin-glaemscrafu.svg#tengwar_sindarin_glaemscrafRg') format('svg');
     font-weight: normal;
     font-style: normal;
-}
+} */
