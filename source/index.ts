@@ -1,4 +1,4 @@
-import { Tengwar } from '~/components/Tengwar'
+import { Queta } from '~/react/Queta'
 
-export { Tengwar } from '~/components/Tengwar'
-export default Tengwar // eslint-disable-line
+export { Queta } from '~/react/Queta'
+export default Queta // eslint-disable-line

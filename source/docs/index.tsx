@@ -1,9 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { Tengwar } from '~/components/Tengwar'
+import { Queta } from '~/react/Queta'
 
 ReactDOM.render(
-	<Tengwar>
+	<Queta>
 		Ai ! laurië lantar lassi súrinen ,
 		yéni únótimë ve rámar aldaron !
 		Yéni ve lintë yuldar avánier
@@ -13,6 +13,6 @@ ReactDOM.render(
 		ómaryo airetári-lírinen .
 
 		Sí man i yulma nin enquantuva ?
-	</Tengwar>,
+	</Queta>,
 	document.querySelector('#root'),
 )

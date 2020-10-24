@@ -12,7 +12,7 @@ type TState = {
 	loading: boolean,
 }
 
-export class Tengwar extends Component<TProps, TState> {
+export class Queta extends Component<TProps, TState> {
 	private static dependencies = Promise.all([
 		import('../../temp/glaemscribe.built.js').then(module => {
 			const processor = module.default as Glaemscribe.default
@@ -20,13 +20,13 @@ export class Tengwar extends Component<TProps, TState> {
 			const manager = processor.resource_manager
 			manager.load_charsets()
 			manager.load_modes()
-			Tengwar.charsets = Array.from(Object.values(manager.loaded_charsets))
-			Tengwar.modes = Array.from(Object.values(manager.loaded_modes))
+			Queta.charsets = Array.from(Object.values(manager.loaded_charsets))
+			Queta.modes = Array.from(Object.values(manager.loaded_modes))
 
 			return processor
 		}),
-		import('./Tengwar.scss'),
 		import('../../temp/glaemscribe.built.scss'),
+		import('./Queta.scss'),
 	])
 
 	public static defaultProps: TProps = {
@@ -43,7 +43,7 @@ export class Tengwar extends Component<TProps, TState> {
 
 	componentDidMount = (): void => {
 		if (this.state.loading) {
-			Tengwar.dependencies.then(() => this.setState({ loading: false }))
+			Queta.dependencies.then(() => this.setState({ loading: false }))
 		}
 	}
 
@@ -55,7 +55,7 @@ export class Tengwar extends Component<TProps, TState> {
 		return charsets[this.props.typeface] ?? mode.default_charset
 	}
 	get mode(): Glaemscribe.Mode | undefined {
-		return Tengwar.modes.find(m => m.name === this.props.language)
+		return Queta.modes.find(m => m.name === this.props.language)
 	}
 	get typeface(): string { return this.charset?.name }
 
@@ -107,5 +107,3 @@ export class Tengwar extends Component<TProps, TState> {
 		)
 	}
 }
-
-window.Tengwar = Tengwar
