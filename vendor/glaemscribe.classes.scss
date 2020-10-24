@@ -1,133 +1,126 @@
-/* ANNATAR */
-.glaemfont.tengwar-annatar-glaemunicode {
-  font-family:'TengwarAnnatarGlaemunicode';
-  font-size:18px;
-  line-height:1.5em;
-}
-.glaemfont.tengwar-annatar-glaemscrafu {
-  font-family:'TengwarAnnatarGlaemscrafu';
-  font-size:18px;
-  line-height:1.5em;
-}
-/* ANNATAR BOLD */
-.glaemfont.tengwar-annatar-bold-glaemunicode {
-  font-family:'TengwarAnnatarGlaemunicodeBold';
-  font-size:18px;
-  line-height:1.5em;
-}
-.glaemfont.tengwar-annatar-bold-glaemscrafu {
-  font-family:'TengwarAnnatarGlaemscrafuBold';
-  font-size:18px;
-  line-height:1.5em;
-}
-/* ANNATAR ITALIC */
-.glaemfont.tengwar-annatar-italic-glaemunicode {
-  font-family:'TengwarAnnatarGlaemunicodeItalic';
-  font-size:18px;
-  line-height:2.4em;
-}
-.glaemfont.tengwar-annatar-italic-glaemscrafu {
-  font-family:'TengwarAnnatarGlaemscrafuItalic';
-  font-size:18px;
-  line-height:2.4em;
-}
-/* ELFICA */
-.glaemfont.tengwar-elfica-glaemunicode {
-  font-family:'TengwarElficaGlaemunicode';
-  font-size:18px;
-  line-height:1.5em;
-}
-.glaemfont.tengwar-elfica-glaemscrafu {
-  font-family:'TengwarElficaGlaemscrafu';
-  font-size:18px;
-  line-height:1.5em;
-}
-/* SINDARIN */
-.glaemfont.tengwar-sindarin-glaemunicode {
-  font-family:'TengwarSindarinGlaemunicode';
-  font-size:18px;
-  line-height:1.5em;
-}
-.glaemfont.tengwar-sindarin-glaemscrafu {
-  font-family:'TengwarSindarinGlaemscrafu';
-  font-size:18px;
-  line-height:1.5em;
-}
-/* ELDAMAR */
-.glaemfont.tengwar-eldamar-glaemunicode {
-  font-family:'TengwarEldamarGlaemunicode';
-  font-size:18px;
-  line-height:1.5em;
-}
-.glaemfont.tengwar-eldamar-glaemscrafu {
-  font-family:'TengwarEldamarGlaemscrafu';
-  font-size:18px;
-  line-height:1.5em;
-}
-/* PARMAITE */
-.glaemfont.tengwar-parmaite-glaemunicode {
-  font-family:'TengwarParmaiteGlaemunicode';
-  font-size:30px;
-  line-height:1.2em;
-}
-.glaemfont.tengwar-parmaite-glaemscrafu {
-  font-family:'TengwarParmaiteGlaemscrafu';
-  font-size:30px;
-  line-height:1.2em;
-}
+/* stylelint-disable font-family-name-quotes */
+.glaemfont {
+	line-height: 1.5em;
 
+	/* ANNATAR */
+	&.tengwar-annatar-glaemunicode {
+		font-family: 'TengwarAnnatarGlaemunicode';
+		line-height: 1.5em;
+	}
 
-.glaemfont.tengwar-freemono {
-  font-family:'FreeMonoTengwar';
-  font-size:18px;
-  line-height:1.5em;
+	&.tengwar-annatar-glaemscrafu {
+		font-family: 'TengwarAnnatarGlaemscrafu';
+		line-height: 1.5em;
+	}
+
+	/* ANNATAR BOLD */
+	&.tengwar-annatar-bold-glaemunicode {
+		font-family: 'TengwarAnnatarGlaemunicodeBold';
+		line-height: 1.5em;
+	}
+
+	&.tengwar-annatar-bold-glaemscrafu {
+		font-family: 'TengwarAnnatarGlaemscrafuBold';
+		line-height: 1.5em;
+	}
+
+	/* ANNATAR ITALIC */
+	&.tengwar-annatar-italic-glaemunicode {
+		font-family: 'TengwarAnnatarGlaemunicodeItalic';
+		line-height: 2.4em;
+	}
+
+	&.tengwar-annatar-italic-glaemscrafu {
+		font-family: 'TengwarAnnatarGlaemscrafuItalic';
+		line-height: 2.4em;
+	}
+
+	/* ELFICA */
+	&.tengwar-elfica-glaemunicode {
+		font-family: 'TengwarElficaGlaemunicode';
+		line-height: 1.5em;
+	}
+
+	&.tengwar-elfica-glaemscrafu {
+		font-family: 'TengwarElficaGlaemscrafu';
+		line-height: 1.5em;
+	}
+
+	/* SINDARIN */
+	&.tengwar-sindarin-glaemunicode {
+		font-family: 'TengwarSindarinGlaemunicode';
+		line-height: 1.5em;
+	}
+
+	&.tengwar-sindarin-glaemscrafu {
+		font-family: 'TengwarSindarinGlaemscrafu';
+		line-height: 1.5em;
+	}
+
+	/* ELDAMAR */
+	&.tengwar-eldamar-glaemunicode {
+		font-family: 'TengwarEldamarGlaemunicode';
+		line-height: 1.5em;
+	}
+
+	&.tengwar-eldamar-glaemscrafu {
+		font-family: 'TengwarEldamarGlaemscrafu';
+		line-height: 1.5em;
+	}
+
+	/* PARMAITE */
+	&.tengwar-parmaite-glaemunicode {
+		font-family: 'TengwarParmaiteGlaemunicode';
+		line-height: 1.2em;
+	}
+
+	&.tengwar-parmaite-glaemscrafu {
+		font-family: 'TengwarParmaiteGlaemscrafu';
+		line-height: 1.2em;
+	}
+
+	&.tengwar-freemono {
+		font-family: 'FreeMonoTengwar';
+		line-height: 1.5em;
+	}
+
+	&.tengwar-telcontar-opentype {
+		font-family: 'TengwarTelcontarOpentype';
+		line-height: 1.5em;
+	}
+
+	&.erebor, .glaemfont.erebor1, .glaemfont.erebor2 {
+		line-height: 1.75em;
+	}
+
+	&.erebor {
+		font-family: 'Cirth Erebor';
+	}
+
+	&.erebor1 {
+		font-family: 'Cirth Erebor1';
+	}
+
+	&.erebor2 {
+		font-family: 'Cirth Erebor2';
+	}
+
+	&.pfeffermediaeval {
+		font-family: 'Pfeffer Mediaeval';
+		line-height: 1.3em;
+	}
+
+	&.analecta-glaemscrafu {
+		font-family: 'Analecta Glaemscrafu';
+		line-height: 1.5em;
+	}
+
+	&.sarati-eldamar-rtlb-glaemscrafu {
+		font-family: 'SaratiEldamarRTLB Glaemscrafu';
+		font-feature-settings: 'kern';
+		font-feature-settings: 'kern=1';
+		font-feature-settings: 'kern' 1;
+		line-height: 1.8em;
+		text-rendering: optimizeLegibility;
+	}
 }
-
-.glaemfont.tengwar-telcontar-opentype {
-  font-family:'TengwarTelcontarOpentype';
-  font-size:18px;
-  line-height:1.5em;
-}
-
-
-
-.glaemfont.erebor, .glaemfont.erebor1, .glaemfont.erebor2 {
-  font-size:16px;
-  line-height:1.75em;
-}
-
-.glaemfont.erebor {
-  font-family:'Cirth Erebor';
-}
-
-.glaemfont.erebor1 {
-  font-family:'Cirth Erebor1';
-}
-
-.glaemfont.erebor2 {
-  font-family:'Cirth Erebor2';
-}
-
-.glaemfont.pfeffermediaeval {
-  font-family:'Pfeffer Mediaeval';
-  font-size: 18px;
-  line-height: 1.3em;
-}
-
-.glaemfont.analecta-glaemscrafu {
-  font-family:'Analecta Glaemscrafu';
-  font-size: 16px;
-  line-height: 1.5em;
-}
-
-.glaemfont.sarati-eldamar-rtlb-glaemscrafu {
-  font-family: "SaratiEldamarRTLB Glaemscrafu";
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "kern" 1;
-  -webkit-font-feature-settings: "kern";
-  -moz-font-feature-settings: "kern";
-  -moz-font-feature-settings: "kern=1";
-  font-size: 20px;
-  line-height: 1.8em;
-}
-
