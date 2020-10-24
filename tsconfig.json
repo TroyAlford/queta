@@ -1,10 +1,19 @@
 {
 	"compilerOptions": {
 		"allowJs": false,
+		"baseUrl": ".",
 		"checkJs": false,
 		"esModuleInterop": true,
 		"jsx": "react",
+		"module": "ESNext",
 		"moduleResolution": "node",
-		"target": "ESNext"
-	}
+		"paths": {
+			"~*": ["source/*"]
+		},
+		"rootDir": ".",
+		"target": "ESNext",
+		"typeRoots": ["node_modules/@types", "source/types"],
+		"types": ["glaemscribe"]
+	},
+	"include": ["**/*.d.ts", "**/*.ts", "**/*.tsx"]
 }
