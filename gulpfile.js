@@ -22,7 +22,7 @@ gulp.task('copy-font-css', () => (
 	gulp.src([
 		`${PATH.FONTS}/*.css`,
 		'./vendor/glaemscribe.classes.scss',
-	]).pipe(concat('glaemscribe.built.css'))
+	]).pipe(concat('glaemscribe.built.scss'))
 		.pipe(gulp.dest('./temp'))
 ))
 gulp.task('copy-fonts', () => (
