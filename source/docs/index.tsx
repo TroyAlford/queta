@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { Tengwar } from '../source/components/Tengwar'
+import { Tengwar } from '~/components/Tengwar'
 
 ReactDOM.render(
 	<Tengwar>
