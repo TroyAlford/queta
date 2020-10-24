@@ -1,28 +1,11 @@
 import type * as Glaemscribe from 'glaemscribe'
 import React, { Component } from 'react'
-// import GS from '../../temp/glaemscribe.built'
-
-// GS.resource_manager.load_modes()
-// GS.resource_manager.load_charsets()
-
-// const modes = GS.resource_manager.loaded_modes
-// export const MODES = Object.values(modes)
-// 	.map(mode => ({
-// 		charsets: mode.supported_charsets,
-// 		humanName: mode.human_name,
-// 		language: mode.language,
-// 		name: mode.name,
-// 		transcriber: modes[mode.name],
-// 		writing: mode.writing,
-// 	}))
-// window.Glaemscribe = GS
-// window.MODES = MODES
 
 type TProps = {
-	charset?: string,
 	className?: string,
 	language?: string,
-	writing?: string,
+	typeface?: string,
+	writing?: Glaemscribe.Writing,
 }
 
 type TState = {
@@ -31,56 +14,56 @@ type TState = {
 
 export class Tengwar extends Component<TProps, TState> {
 	private static dependencies = Promise.all([
-		import('../../temp/glaemscribe.built').then(module => {
-			window.Glaemscribe = module.default
-			window.Glaemscribe.resource_manager.load_charsets()
-			window.Glaemscribe.resource_manager.load_modes()
-			return module.default as Glaemscribe.default
+		import('../../temp/glaemscribe.built.js').then(module => {
+			const processor = module.default as Glaemscribe.default
+
+			const manager = processor.resource_manager
+			manager.load_charsets()
+			manager.load_modes()
+			Tengwar.charsets = Array.from(Object.values(manager.loaded_charsets))
+			Tengwar.modes = Array.from(Object.values(manager.loaded_modes))
+
+			return processor
 		}),
+		import('./Tengwar.scss'),
 		import('../../temp/glaemscribe.built.scss'),
 	])
 
-	static defaultProps: TProps = {
-		charset: 'tengwar_guni_sindarin',
+	public static defaultProps: TProps = {
 		language: 'quenya-tengwar-classical',
+		typeface: 'tengwar_guni_sindarin',
 		writing: 'Tengwar',
 	}
+	public static modes: Glaemscribe.Mode[] = []
+	public static charsets: Glaemscribe.Charset[] = []
 
-	#modes: Array<Glaemscribe.Mode> = []
-
-	state: TState = {
+	public state: TState = {
 		loading: !window.Glaemscribe,
 	}
 
 	componentDidMount = (): void => {
 		if (this.state.loading) {
-			Tengwar.dependencies.then(() => {
-				this.#modes = Array.from(Object.values(window.Glaemscribe.resource_manager.loaded_modes))
-				this.setState({ loading: false })
-			})
+			Tengwar.dependencies.then(() => this.setState({ loading: false }))
 		}
 	}
 
-	get mode(): Glaemscribe.Mode | undefined {
-		return (
-			this.#modes.find(m => m.name === this.props.language && m.writing === this.props.writing)
-			|| this.#modes.find(m => m.name === this.props.language)
-			|| this.#modes[0]
-		)
-	}
 	get charset(): Glaemscribe.Charset | undefined {
-		const charsets = this.mode?.supported_charsets || {}
-		return charsets[this.props.charset] ?? Object.values(charsets)[0]
-	}
+		const { mode } = this
+		if (!mode) return undefined
 
-	transcribe = (text: string): string => this.mode?.transcribe(text, this.charset) ?? text
-	transcribeChildren = (children: React.ReactNode): React.ReactChild[] => (
+		const charsets = mode.supported_charsets || {}
+		return charsets[this.props.typeface] ?? mode.default_charset
+	}
+	get mode(): Glaemscribe.Mode | undefined {
+		return Tengwar.modes.find(m => m.name === this.props.language)
+	}
+	get typeface(): string { return this.charset?.name }
+
+	#renderChildren = (children: React.ReactNode): React.ReactChild[] => (
 		(React.Children.toArray(children) as React.ReactChild[]).map((child, index) => {
 			if (typeof child === 'string') {
-				const [success, transcription] = this.transcribe(child)
-				if (success) {
-					return transcription
-				}
+				const [success, transcription] = this.#renderText(child)
+				if (success) { return transcription }
 			} else if (typeof child === 'number') {
 				return child
 			} else if (child?.props?.children) {
@@ -88,7 +71,7 @@ export class Tengwar extends Component<TProps, TState> {
 				const Type = child.type
 				return (
 					<Type key={index} {...child.props}>
-						{this.transcribeChildren(
+						{this.#renderChildren(
 							Array.isArray(grandChildren)
 								? grandChildren
 								: [grandChildren],
@@ -100,23 +83,29 @@ export class Tengwar extends Component<TProps, TState> {
 			return child
 		})
 	)
+	#renderText = (text: string): string => this.mode?.transcribe(text, this.charset) ?? text
+
 	render = (): JSX.Element => {
-		const { className } = this.props
+		const { children, className } = this.props
 		const { loading } = this.state
 		const classes = [
-			'glaemscribe', 'glaemfont',
-			'tengwar-annatar-bold-glaemunicode',
+			'glaemscribe',
 			className,
-			loading ? 'loading' : null,
-		].filter(Boolean)
+			...(loading ? ['loading'] : [this.typeface, this.mode?.name]),
+		].filter(Boolean).join(' ')
+
+		if (loading) { return <div className={classes} /> }
 
 		return (
-			<div className={classes.join(' ')}>
-				{(loading
-					? <div className="loading" />
-					: this.transcribeChildren(this.props.children)
+			<div className={classes}>
+				{(
+					this.mode
+						? this.#renderChildren(children)
+						: children
 				)}
 			</div>
 		)
 	}
 }
+
+window.Tengwar = Tengwar
