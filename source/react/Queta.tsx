@@ -1,5 +1,10 @@
 import type * as Glaemscribe from 'glaemscribe'
 import React, { Component } from 'react'
+import type {
+	ITranslator,
+	resolve as resolveFn,
+	translate as translateFn,
+} from '../translate/translate'
 
 type TProps = {
 	className?: string,
@@ -10,60 +15,36 @@ type TProps = {
 
 type TState = {
 	loading: boolean,
+	resolve?: typeof resolveFn,
+	translate?: typeof translateFn,
 }
 
 export class Queta extends Component<TProps, TState> {
-	private static dependencies = Promise.all([
-		import('../../temp/glaemscribe.built.js').then(module => {
-			const processor = module.default as Glaemscribe.default
+	private static dependencies = import('~/translate/translate')
+		.then(module => module.dependencies.then(() => ({
+			resolve: module.resolve,
+			translate: module.translate,
+		})))
 
-			const manager = processor.resource_manager
-			manager.load_charsets()
-			manager.load_modes()
-			Queta.charsets = Array.from(Object.values(manager.loaded_charsets))
-			Queta.modes = Array.from(Object.values(manager.loaded_modes))
-
-			return processor
-		}),
-		import('../../temp/glaemscribe.built.scss'),
-		import('./Queta.scss'),
-	])
+	#loading = Queta.dependencies.then(({ resolve, translate }) => {
+		this.setState({ loading: false, resolve, translate })
+	})
 
 	public static defaultProps: TProps = {
 		language: 'quenya-tengwar-classical',
 		typeface: 'tengwar_guni_sindarin',
 		writing: 'Tengwar',
 	}
-	public static modes: Glaemscribe.Mode[] = []
-	public static charsets: Glaemscribe.Charset[] = []
-
 	public state: TState = {
-		loading: !window.Glaemscribe,
+		loading: true,
 	}
-
-	componentDidMount = (): void => {
-		if (this.state.loading) {
-			Queta.dependencies.then(() => this.setState({ loading: false }))
-		}
-	}
-
-	get charset(): Glaemscribe.Charset | undefined {
-		const { mode } = this
-		if (!mode) return undefined
-
-		const charsets = mode.supported_charsets || {}
-		return charsets[this.props.typeface] ?? mode.default_charset
-	}
-	get mode(): Glaemscribe.Mode | undefined {
-		return Queta.modes.find(m => m.name === this.props.language)
-	}
-	get typeface(): string { return this.charset?.name }
 
 	#renderChildren = (children: React.ReactNode): React.ReactChild[] => (
 		(React.Children.toArray(children) as React.ReactChild[]).map((child, index) => {
 			if (typeof child === 'string') {
-				const [success, transcription] = this.#renderText(child)
-				if (success) { return transcription }
+				const { language, typeface } = this.props
+				const { success, translation } = this.state.translate(child, language, typeface)
+				if (success) { return translation }
 			} else if (typeof child === 'number') {
 				return child
 			} else if (child?.props?.children) {
@@ -83,26 +64,23 @@ export class Queta extends Component<TProps, TState> {
 			return child
 		})
 	)
-	#renderText = (text: string): string => this.mode?.transcribe(text, this.charset) ?? text
 
 	render = (): JSX.Element => {
-		const { children, className } = this.props
-		const { loading } = this.state
+		const { children, className, language, typeface } = this.props
+		const { loading, resolve } = this.state
+		const { charset, mode } = loading ? {} as ITranslator : resolve(language, typeface)
+
 		const classes = [
 			'glaemscribe',
 			className,
-			...(loading ? ['loading'] : [this.typeface, this.mode?.name]),
+			mode?.name,
+			charset?.name,
+			loading && 'loading',
 		].filter(Boolean).join(' ')
-
-		if (loading) { return <div className={classes} /> }
 
 		return (
 			<div className={classes}>
-				{(
-					this.mode
-						? this.#renderChildren(children)
-						: children
-				)}
+				{!loading && this.#renderChildren(children)}
 			</div>
 		)
 	}

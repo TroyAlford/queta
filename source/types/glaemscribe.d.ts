@@ -55,7 +55,7 @@ declare module 'glaemscribe' {
 		name: string,
 		options: Record<string, boolean | number>,
 		supported_charsets: Record<string, Charset>,
-		transcribe: (text: string, charset: Charset) => string,
+		transcribe: (text: string, charset: Charset) => [boolean, string],
 		version: string,
 		world: World,
 		writing: Writing,
