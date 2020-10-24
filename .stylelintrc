@@ -79,7 +79,6 @@
     "property-case": "lower",
     "property-no-unknown": true,
     "property-no-vendor-prefix": [true, { "ignoreProperties": ["appearance", "grid-row-align", "grid-row", "grid-rows", "grid-column", "grid-columns", "inner-spin-button" ]}],
-    "rule-empty-line-before": ["always", { "ignore": ["first-nested"], "except": ["after-single-line-comment"] }],
     "scss/at-extend-no-missing-placeholder": true,
     "scss/dollar-variable-colon-space-after": "always",
     "scss/dollar-variable-no-missing-interpolation": true,
