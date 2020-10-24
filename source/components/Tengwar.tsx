@@ -1,30 +1,44 @@
+import type * as Glaemscribe from 'glaemscribe'
 import React, { Component } from 'react'
-import Glaemscribe from '../../temp/glaemscribe.built'
+// import GS from '../../temp/glaemscribe.built'
 
-Glaemscribe.resource_manager.load_modes()
-Glaemscribe.resource_manager.load_charsets()
+// GS.resource_manager.load_modes()
+// GS.resource_manager.load_charsets()
 
-const modes = Glaemscribe.resource_manager.loaded_modes
-export const MODES = Object.values(modes)
-	.map(mode => ({
-		charsets: mode.supported_charsets,
-		humanName: mode.human_name,
-		language: mode.language,
-		name: mode.name,
-		transcriber: modes[mode.name],
-		writing: mode.writing,
-	}))
-window.Glaemscribe = Glaemscribe
-window.MODES = MODES
+// const modes = GS.resource_manager.loaded_modes
+// export const MODES = Object.values(modes)
+// 	.map(mode => ({
+// 		charsets: mode.supported_charsets,
+// 		humanName: mode.human_name,
+// 		language: mode.language,
+// 		name: mode.name,
+// 		transcriber: modes[mode.name],
+// 		writing: mode.writing,
+// 	}))
+// window.Glaemscribe = GS
+// window.MODES = MODES
 
 type TProps = {
 	charset?: string,
+	className?: string,
 	language?: string,
 	writing?: string,
 }
 
-export class Tengwar extends Component<TProps> {
-	styles = import('../../temp/glaemscribe.built.css')
+type TState = {
+	loading: boolean,
+}
+
+export class Tengwar extends Component<TProps, TState> {
+	private static dependencies = Promise.all([
+		import('../../temp/glaemscribe.built').then(module => {
+			window.Glaemscribe = module.default
+			window.Glaemscribe.resource_manager.load_charsets()
+			window.Glaemscribe.resource_manager.load_modes()
+			return module.default as Glaemscribe.default
+		}),
+		import('../../temp/glaemscribe.built.scss'),
+	])
 
 	static defaultProps: TProps = {
 		charset: 'tengwar_guni_sindarin',
@@ -32,21 +46,36 @@ export class Tengwar extends Component<TProps> {
 		writing: 'Tengwar',
 	}
 
-	get language() {
-		return (
-			MODES.find(m => m.name === this.props.language && m.writing === this.props.writing)
-			|| MODES.find(m => m.name === this.props.language)
-			|| MODES[0]
-		)
-	}
-	get charset() {
-		const { language } = this
-		return language.charsets[this.props.charset] ?? Object.values(language.charsets)[0]
+	#modes: Array<Glaemscribe.Mode> = []
+
+	state: TState = {
+		loading: !window.Glaemscribe,
 	}
 
-	transcribe = text => this.language.transcriber.transcribe(text, this.charset)
-	transcribeChildren = (children: React.ReactChild[]): React.ReactChild[] => (
-		children.map((child, index) => {
+	componentDidMount = (): void => {
+		if (this.state.loading) {
+			Tengwar.dependencies.then(() => {
+				this.#modes = Array.from(Object.values(window.Glaemscribe.resource_manager.loaded_modes))
+				this.setState({ loading: false })
+			})
+		}
+	}
+
+	get mode(): Glaemscribe.Mode | undefined {
+		return (
+			this.#modes.find(m => m.name === this.props.language && m.writing === this.props.writing)
+			|| this.#modes.find(m => m.name === this.props.language)
+			|| this.#modes[0]
+		)
+	}
+	get charset(): Glaemscribe.Charset | undefined {
+		const charsets = this.mode?.supported_charsets || {}
+		return charsets[this.props.charset] ?? Object.values(charsets)[0]
+	}
+
+	transcribe = (text: string): string => this.mode?.transcribe(text, this.charset) ?? text
+	transcribeChildren = (children: React.ReactNode): React.ReactChild[] => (
+		(React.Children.toArray(children) as React.ReactChild[]).map((child, index) => {
 			if (typeof child === 'string') {
 				const [success, transcription] = this.transcribe(child)
 				if (success) {
@@ -72,17 +101,20 @@ export class Tengwar extends Component<TProps> {
 		})
 	)
 	render = (): JSX.Element => {
-		console.log(this.language)
-
+		const { className } = this.props
+		const { loading } = this.state
 		const classes = [
 			'glaemscribe', 'glaemfont',
 			'tengwar-annatar-bold-glaemunicode',
+			className,
+			loading ? 'loading' : null,
 		].filter(Boolean)
 
 		return (
 			<div className={classes.join(' ')}>
-				{this.transcribeChildren(
-					React.Children.toArray(this.props.children) as React.ReactChild[],
+				{(loading
+					? <div className="loading" />
+					: this.transcribeChildren(this.props.children)
 				)}
 			</div>
 		)
