@@ -16,8 +16,7 @@
 		"resolveJsonModule": true,
 		"rootDir": ".",
 		"target": "ESNext",
-		"typeRoots": ["node_modules/@types", "source/types"],
-		"types": ["glaemscribe"]
+		"typeRoots": ["node_modules/@types", "source/types"]
 	},
 	"include": ["**/*.d.ts", "**/*.ts", "**/*.tsx"]
 }
