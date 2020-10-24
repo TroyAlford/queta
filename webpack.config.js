@@ -10,12 +10,24 @@ const SOURCEMAP = !PRODUCTION || process.env.SOURCEMAP
 const include = [
 	/node_modules\/glaemscribe/,
 	`${__dirname}/source/`,
+	`${__dirname}/temp/`,
 	`${__dirname}/vendor/`,
 ]
 
 module.exports = {
+	devServer: {
+		contentBase: './source',
+		historyApiFallback: true,
+		hot: true,
+		injectHot: true,
+		port: 1234,
+		watchContentBase: true,
+	},
 	devtool: SOURCEMAP ? 'source-map' : 'none',
-	entry: `${__dirname}/source/index.ts`,
+	entry: {
+		'react-glaemscribe': `${__dirname}/source/index.ts`,
+		'react-glaemscribe-docs': `${__dirname}/source/docs/index.tsx`,
+	},
 	externals: {
 		react: 'React',
 		'react-dom': 'ReactDOM',
@@ -24,10 +36,14 @@ module.exports = {
 		rules: [{
 			exclude: /node_modules/,
 			loader: 'babel-loader',
-			test: /\.js$/,
+			test: /\.[jt]sx?$/,
 		}, {
 			include,
-			test: /\.s?css$/,
+			test: /\.css$/,
+			use: ['style-loader', 'css-loader'],
+		}, {
+			include,
+			test: /\.scss$/,
 			use: [
 				{ loader: MiniCssExtractPlugin.loader, options: { hmr: !PRODUCTION } },
 				'css-loader',
@@ -50,8 +66,8 @@ module.exports = {
 		}],
 	},
 	output: {
-		chunkFilename: 'react-glaemscribe.[id].js',
-		filename: PRODUCTION ? 'react-glaemscribe.min.js' : 'react-glaemscribe.js',
+		chunkFilename: '[name].[id].js',
+		filename: PRODUCTION ? '[name].min.js' : '[name].js',
 		library: 'react-glaemscribe',
 		libraryTarget: 'umd',
 		path: path.resolve(__dirname, 'dist'),
@@ -78,9 +94,9 @@ module.exports = {
 	],
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, 'source/'),
+			'~': path.resolve(__dirname, 'source'),
 		},
-		extensions: ['.css', '.js', '.scss', '.ts', '.tsx'],
+		extensions: ['.tsx', '.ts', '.js', '.scss', '.css'], // Order matters!
 		modules: ['node_modules'],
 	},
 	stats: {

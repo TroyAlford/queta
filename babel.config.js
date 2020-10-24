@@ -1,5 +1,6 @@
 module.exports = {
 	plugins: [
+		'@babel/plugin-transform-runtime',
 		['@babel/plugin-transform-typescript', { allowDeclareFields: true }],
 		'@babel/plugin-proposal-class-properties',
 		'@babel/plugin-proposal-numeric-separator',
