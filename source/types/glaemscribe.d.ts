@@ -55,6 +55,7 @@ declare module 'glaemscribe' {
 		name: string,
 		options: Record<string, boolean | number>,
 		supported_charsets: Record<string, Charset>,
+		transcribe: (text: string, charset: Charset) => string,
 		version: string,
 		world: World,
 		writing: Writing,
@@ -66,4 +67,13 @@ declare module 'glaemscribe' {
 
 	export type World = 'arda' | 'other_world' | 'primary' | 'primary_related_to_arda'
 	export type Writing = 'Cirth' | 'Gothic Alphabet' | 'Runes' | 'Sarati' | 'Tengwar'
+
+	export default class Processor {
+		resource_manager: {
+			load_charsets: () => void,
+			load_modes: () => void,
+			loaded_charsets: Record<string, Charset>,
+			loaded_modes: Record<string, Mode>,
+		}
+	}
 }
