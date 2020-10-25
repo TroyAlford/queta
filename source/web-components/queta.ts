@@ -60,8 +60,8 @@ class Component extends HTMLElement {
 	}
 
 	#renderChildren = (
-		source: Element,
-		target: Element,
+		source: Node,
+		target: Node,
 		language?: string,
 		typeface?: string,
 	): void => {
@@ -69,22 +69,11 @@ class Component extends HTMLElement {
 			if (child instanceof Text) {
 				const { success, translation } = this.#translate(child.data, language, typeface)
 				target.appendChild(new Text(success ? translation : child.data))
+			} else if (child.childNodes) {
+				const clone = child.cloneNode(false)
+				this.#renderChildren(child, clone, language, typeface)
+				target.appendChild(clone)
 			}
-			// } else if (typeof child === 'number') {
-			// 	return child
-			// } else if (child?.props?.children) {
-			// 	const grandChildren = child.props.children
-			// 	const Type = child.type
-			// return (
-			// 	<Type key={index} {...child.props}>
-			// 		{this.#renderChildren(
-			// 			Array.isArray(grandChildren)
-			// 				? grandChildren
-			// 				: [grandChildren],
-			// 		)}
-			// 	</Type>
-			// )
-			// }
 		})
 	}
 
