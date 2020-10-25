@@ -14,7 +14,7 @@ gulp.task('shim-js', () => (
 		`${PATH.JS}/charsets/*.cst.js`,
 		`${PATH.JS}/modes/*.glaem.js`,
 		'./vendor/end.glaemscribe.shim',
-	]).pipe(concat('glaemscribe.built.js'))
+	]).pipe(concat('glaemscribe.js'))
 		.pipe(gulp.dest('./temp'))
 ))
 
@@ -23,8 +23,8 @@ gulp.task('copy-font-css', () => (
 		`${PATH.FONTS}/*.css`,
 		`${PATH.FONTS}/legacy/*.css`,
 		'./vendor/fonts/**/*.css',
-		'./vendor/glaemscribe.classes.scss',
-	]).pipe(concat('glaemscribe.built.scss'))
+		'./vendor/styles.scss',
+	]).pipe(concat('glaemscribe.scss'))
 		.pipe(gulp.dest('./temp'))
 ))
 gulp.task('copy-fonts', () => (

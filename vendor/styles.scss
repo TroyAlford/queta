@@ -2,6 +2,12 @@
 .queta {
 	line-height: 1.5em;
 
+	&.loading::after {
+		content: 'Loading...';
+		font-style: italic;
+		opacity: .75;
+	}
+
 	// Unicode fonts
 	&.tengwar_guni_annatar {
 		font-family: 'TengwarAnnatarGlaemunicode';

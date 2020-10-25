@@ -15,9 +15,8 @@ let glaemscribe: Glaemscribe.default = null
 let modes: Glaemscribe.Mode[] = []
 
 export const dependencies = Promise.all([
-	import('../../temp/glaemscribe.built.js') as Promise<{ default: Glaemscribe.default }>,
-	import('../../temp/glaemscribe.built.scss'),
-	import('../component.scss'),
+	import('../../temp/glaemscribe.js') as Promise<{ default: Glaemscribe.default }>,
+	import('../../temp/glaemscribe.scss'),
 ]).then(([{ default: gs }]) => {
 	glaemscribe = gs
 	glaemscribe.resource_manager.load_charsets()
