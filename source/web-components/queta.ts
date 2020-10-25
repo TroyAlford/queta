@@ -106,8 +106,10 @@ function createComponent(options: TOptions) {
 			const typeface = charset?.name
 
 			this.#span.innerHTML = ''
-			this.#span.className = ['queta', language, typeface, bold && 'bold', italic && 'italic']
-				.filter(Boolean).join(' ')
+			this.#span.className = [
+				'queta', language, typeface,
+				bold && 'bold', italic && 'italic',
+			].filter(Boolean).join(' ')
 			this.#renderChildren(this, this.#span, language, typeface)
 		}
 	}

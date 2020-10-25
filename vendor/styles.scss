@@ -1,5 +1,8 @@
 /* stylelint-disable font-family-name-quotes */
 .queta {
+	font-size: 1em;
+	line-height: 1em;
+
 	&.loading::after {
 		content: 'Loading...';
 		font-style: italic;
@@ -18,7 +21,6 @@
 	&.tengwar_guni_elfica { font-family: 'TengwarElficaGlaemunicode'; }
 	&.tengwar_guni_parmaite { font-family: 'TengwarParmaiteGlaemunicode'; }
 	&.tengwar_guni_sindarin { font-family: 'TengwarSindarinGlaemunicode'; }
-	&.unicode_runes { font-family: 'Pfeffer Mediaeval'; }
 
 	// Legacy fonts
 	&.sarati_eldamar {
@@ -38,7 +40,16 @@
 	&.tengwar_ds_sindarin { font-family: 'Tengwar Sindarin Glaemscrafu'; }
 
 	// Other
-	&.cirth_ds { font-family: 'Cirth Erebor'; }
 	&.tengwar_freemono { font-family: 'FreeMonoTengwar'; }
 	&.tengwar_telcontar { font-family: 'TengwarTelcontarOpentype'; }
+
+	&.cirth_ds {
+		font-family: 'Cirth Erebor';
+		font-size: .8em;
+	}
+	&.unicode_runes {
+		bottom: .1em; // stylelint-disable
+		font-family: 'Pfeffer Mediaeval';
+		position: relative;
+	}
 }
