@@ -3,17 +3,17 @@ const gulp = require('gulp')
 const concat = require('gulp-concat')
 
 const PATH = {
-	FONTS: './node_modules/glaemscribe-fonts/fonts/build/webs',
-	JS: './node_modules/glaemscribe-fonts/build/web/glaemscribe/js',
+	FONTS: './node_modules/glaemscribe/fonts/build/webs',
+	JS: './node_modules/glaemscribe/build/web/glaemscribe/js',
 }
 
 gulp.task('shim-js', () => (
 	gulp.src([
-		'./vendor/glaemscribe.shim.start.js',
+		'./vendor/start.glaemscribe.shim',
 		`${PATH.JS}/glaemscribe.js`,
 		`${PATH.JS}/charsets/*.cst.js`,
 		`${PATH.JS}/modes/*.glaem.js`,
-		'./vendor/glaemscribe.shim.end.js',
+		'./vendor/end.glaemscribe.shim',
 	]).pipe(concat('glaemscribe.built.js'))
 		.pipe(gulp.dest('./temp'))
 ))

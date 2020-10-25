@@ -71,7 +71,7 @@ export class Queta extends Component<TProps, TState> {
 		const { charset, mode } = loading ? {} as ITranslator : resolve(language, typeface)
 
 		const classes = [
-			'glaemscribe',
+			'queta',
 			className,
 			mode?.name,
 			charset?.name,
@@ -85,3 +85,5 @@ export class Queta extends Component<TProps, TState> {
 		)
 	}
 }
+
+export default Queta // eslint-disable-line

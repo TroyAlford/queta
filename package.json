@@ -7,8 +7,7 @@
   "author": "Troy Alford <troy@troyalford.com>",
   "license": "AGPL-3.0",
   "dependencies": {
-    "glaemscribe": "^1.2.0",
-    "glaemscribe-fonts": "BenTalagan/glaemscribe"
+		"glaemscribe": "NerdrageTools/glaemscribe"
   },
   "peerDependencies": {
     "react": "^17.0.1",
@@ -65,6 +64,7 @@
     "jest": "^26.6.1",
     "jest-cli": "^26.6.1",
     "mini-css-extract-plugin": "^1.2.0",
+    "patch-package": "^6.2.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "sass": "^1.27.0",

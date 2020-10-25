@@ -25,8 +25,9 @@ module.exports = {
 	},
 	devtool: SOURCEMAP ? 'source-map' : 'none',
 	entry: {
-		'react-glaemscribe': `${__dirname}/source/index.ts`,
-		'react-glaemscribe-docs': `${__dirname}/source/docs/index.tsx`,
+		'queta-docs': `${__dirname}/source/docs/index.tsx`,
+		'queta-react': `${__dirname}/source/react/Queta.tsx`,
+		'queta-web-components': `${__dirname}/source/web-components/index.ts`,
 	},
 	externals: {
 		react: 'React',
