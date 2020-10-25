@@ -29,7 +29,11 @@ class Component extends HTMLElement {
 		shadowRoot.append(this.#slot, this.#span)
 
 		this.#mutationObserver = new MutationObserver(() => this.#render())
-		this.#mutationObserver.observe(this, { childList: true, subtree: true })
+		this.#mutationObserver.observe(this, {
+			characterData: true, // changes to text content
+			childList: true, // adding/removing child nodes
+			subtree: true, // adding/removing grandchildren
+		})
 
 		Component.dependencies.then(({ resolve, translate }) => {
 			this.#loading = false
