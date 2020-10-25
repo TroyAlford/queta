@@ -1,100 +1,124 @@
-import type {
-	resolve as resolveFn,
-	translate as translateFn,
-} from '../translate/translate'
+import type { resolve as resolveFn, translate as translateFn } from '../translate/translate'
 
-class Component extends HTMLElement {
-	private static dependencies = import('~/translate/translate')
-		.then(module => module.dependencies.then(() => ({
-			resolve: module.resolve,
-			translate: module.translate,
-		})))
+type TOptions = {
+	bold?: boolean,
+	defaultLanguage?: string,
+	defaultTypeface?: string,
+	italic?: boolean,
+}
 
-	defaultLanguage: string = 'quenya-tengwar-classical'
-	defaultTypeface: string = 'tengwar_guni_sindarin'
+const defaultOptions: TOptions = {
+	bold: false,
+	defaultLanguage: 'quenya-tengwar-classical',
+	defaultTypeface: 'tengwar_guni_annatar',
+	italic: false,
+}
 
-	#loading: boolean
-	#mutationObserver: MutationObserver
-	#resolve: typeof resolveFn
-	#translate: typeof translateFn
+function createComponent(options: TOptions) {
+	const settings: TOptions = { ...defaultOptions, ...options }
 
-	#slot: HTMLSlotElement
-	#span: HTMLSpanElement
+	return class Component extends HTMLElement {
+		private static dependencies = import('~/translate/translate')
+			.then(module => module.dependencies.then(() => ({
+				resolve: module.resolve,
+				translate: module.translate,
+			})))
 
-	constructor() {
-		super()
-		const shadowRoot = this.attachShadow({ mode: 'closed' })
-		this.#slot = Object.assign(document.createElement('slot'), { style: 'display: none;' })
-		this.#span = document.createElement('span')
-		shadowRoot.append(this.#slot, this.#span)
+		#loading: boolean
+		#mutationObserver: MutationObserver
+		#resolve: typeof resolveFn
+		#translate: typeof translateFn
 
-		this.#mutationObserver = new MutationObserver(() => this.#render())
-		this.#mutationObserver.observe(this, {
-			characterData: true, // changes to text content
-			childList: true, // adding/removing child nodes
-			subtree: true, // adding/removing grandchildren
-		})
+		#slot: HTMLSlotElement
+		#span: HTMLSpanElement
 
-		Component.dependencies.then(({ resolve, translate }) => {
-			this.#loading = false
-			this.#resolve = resolve
-			this.#translate = translate
+		constructor() {
+			super()
+			const shadowRoot = this.attachShadow({ mode: 'closed' })
+			this.#slot = Object.assign(document.createElement('slot'), { style: 'display: none;' })
+			this.#span = document.createElement('span')
+			shadowRoot.append(this.#slot, this.#span)
 
-			shadowRoot.appendChild(
-				document.querySelector('link#queta-styles').cloneNode(),
-			)
-		})
+			this.#mutationObserver = new MutationObserver(() => this.#render())
+			this.#mutationObserver.observe(this, {
+				characterData: true, // changes to text content
+				childList: true, // adding/removing child nodes
+				subtree: true, // adding/removing grandchildren
+			})
 
-		this.#loading = true
-		this.#render()
-		Component.dependencies.then(() => {
-			this.#loading = false
+			Component.dependencies.then(({ resolve, translate }) => {
+				this.#loading = false
+				this.#resolve = resolve
+				this.#translate = translate
+
+				shadowRoot.appendChild(
+					document.querySelector('link#queta-styles').cloneNode(),
+				)
+			})
+
+			this.#loading = true
 			this.#render()
-		})
-	}
-
-	attributeChangedCallback(name, oldValue, newValue) {
-		if (['language', 'typeface'].includes(name) && oldValue !== newValue) {
-			this.#render()
+			Component.dependencies.then(() => {
+				this.#loading = false
+				this.#render()
+			})
 		}
-	}
 
-	#renderChildren = (
-		source: Node,
-		target: Node,
-		language?: string,
-		typeface?: string,
-	): void => {
-		Array.from(source.childNodes).forEach(child => {
-			if (child instanceof Text) {
-				const { success, translation } = this.#translate(child.data, language, typeface)
-				target.appendChild(new Text(success ? translation : child.data))
-			} else if (child.childNodes) {
-				const clone = child.cloneNode(false)
-				this.#renderChildren(child, clone, language, typeface)
-				target.appendChild(clone)
+		attributeChangedCallback(name, oldValue, newValue) {
+			if (['language', 'typeface'].includes(name) && oldValue !== newValue) {
+				this.#render()
 			}
-		})
-	}
-
-	#render = (): void => {
-		if (this.#loading) {
-			this.#span.innerHTML = ''
-			this.#span.className = 'queta loading'
-			return
 		}
 
-		const { charset, mode } = this.#resolve(
-			this.getAttribute('language') ?? this.defaultLanguage,
-			this.getAttribute('typeface') ?? this.defaultTypeface,
-		)
-		const language = mode?.name
-		const typeface = charset?.name
+		#renderChildren = (
+			source: Node,
+			target: Node,
+			language?: string,
+			typeface?: string,
+		): void => {
+			Array.from(source.childNodes).forEach(child => {
+				if (child instanceof Text) {
+					const { success, translation } = this.#translate(child.data, language, typeface)
+					target.appendChild(new Text(success ? translation : child.data))
+				} else if (child.childNodes) {
+					const clone = child.cloneNode(false)
+					this.#renderChildren(child, clone, language, typeface)
+					target.appendChild(clone)
+				}
+			})
+		}
 
-		this.#span.innerHTML = ''
-		this.#span.className = ['queta', language, typeface].filter(Boolean).join(' ')
-		this.#renderChildren(this, this.#span, language, typeface)
+		#render = (): void => {
+			if (this.#loading) {
+				this.#span.innerHTML = ''
+				this.#span.className = 'queta loading'
+				return
+			}
+
+			const bold = this.getAttribute('bold') ?? settings.bold
+			const italic = this.getAttribute('italic') ?? settings.italic
+
+			const { charset, mode } = this.#resolve(
+				this.getAttribute('language') ?? settings.defaultLanguage,
+				this.getAttribute('typeface') ?? settings.defaultTypeface,
+			)
+			const language = mode?.name
+			const typeface = charset?.name
+
+			this.#span.innerHTML = ''
+			this.#span.className = ['queta', language, typeface, bold && 'bold', italic && 'italic']
+				.filter(Boolean).join(' ')
+			this.#renderChildren(this, this.#span, language, typeface)
+		}
 	}
 }
 
-window.customElements.define('queta-text', Component)
+;([ // eslint-disable-line
+	['queta', {}],
+	['adunaic', { defaultTypeface: 'tengwar_guni_annatar' }],
+	['blackspeech', { defaultTypeface: 'tengwar_guni_annatar', italic: true }],
+	['khuzdul', { defaultLanguage: 'khuzdul-cirth-moria', defaultTypeface: 'cirth_ds' }],
+	['runic', { defaultLanguage: 'old_norse-futhark-runicus', defaultTypeface: 'unicode_runes' }],
+]).forEach(([elementName, options]: [string, TOptions]) => {
+	window.customElements.define(`${elementName}-text`, createComponent(options))
+})

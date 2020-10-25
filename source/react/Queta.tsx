@@ -32,7 +32,7 @@ export class Queta extends Component<TProps, TState> {
 
 	public static defaultProps: TProps = {
 		language: 'quenya-tengwar-classical',
-		typeface: 'tengwar_guni_sindarin',
+		typeface: 'tengwar_guni_annatar',
 		writing: 'Tengwar',
 	}
 	public state: TState = {
