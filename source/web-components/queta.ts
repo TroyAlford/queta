@@ -46,7 +46,9 @@ class Component extends HTMLElement {
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
+		if (['language', 'typeface'].includes(name) && oldValue !== newValue) {
 		this.#render()
+	}
 	}
 
 	#renderChildren = (
@@ -88,7 +90,7 @@ class Component extends HTMLElement {
 		}
 
 		const { charset, mode } = this.#resolve(
-			this.getAttribute('lang') ?? this.defaultLanguage,
+			this.getAttribute('language') ?? this.defaultLanguage,
 			this.getAttribute('typeface') ?? this.defaultTypeface,
 		)
 		const language = mode?.name
