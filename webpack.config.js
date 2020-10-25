@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires,global-require,no-undef */
 const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const PluginMinimizeCSS = require('css-minimizer-webpack-plugin')
+const PluginExtractCSS = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 
 const ENVIRONMENT = process.env.NODE_ENV
@@ -40,13 +41,9 @@ module.exports = {
 			test: /\.[jt]sx?$/,
 		}, {
 			include,
-			test: /\.css$/,
-			use: ['style-loader', 'css-loader'],
-		}, {
-			include,
 			test: /\.scss$/,
 			use: [
-				{ loader: MiniCssExtractPlugin.loader, options: { hmr: !PRODUCTION } },
+				{ loader: PluginExtractCSS.loader, options: { hmr: !PRODUCTION } },
 				'css-loader',
 				{ loader: 'sass-loader',
 					options: {
@@ -65,6 +62,12 @@ module.exports = {
 			},
 			test: /\.(woff2?|eot|ttf|svg)#?/,
 		}],
+	},
+	optimization: {
+		minimize: true,
+		minimizer: [
+			new PluginMinimizeCSS(),
+		],
 	},
 	output: {
 		chunkFilename: '[name].[id].js',
@@ -86,8 +89,11 @@ module.exports = {
 					sourceMap: SOURCEMAP,
 				}),
 			]
-			: [],
-		new MiniCssExtractPlugin({
+			: [new webpack.HotModuleReplacementPlugin()],
+		new PluginExtractCSS({
+			attributes: {
+				id: 'queta-styles',
+			},
 			chunkFilename: 'react-glaemscribe.[id].css',
 			filename: 'react-glaemscribe.css',
 			ignoreOrder: true,
