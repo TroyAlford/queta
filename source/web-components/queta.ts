@@ -1,6 +1,4 @@
-import type * as Glaemscribe from 'glaemscribe'
 import type {
-	ITranslator,
 	resolve as resolveFn,
 	translate as translateFn,
 } from '../translate/translate'
@@ -12,78 +10,93 @@ class Component extends HTMLElement {
 			translate: module.translate,
 		})))
 
-	#load = Component.dependencies.then(({ resolve, translate }) => {
-		this.#loading = false
-		this.#resolve = resolve
-		this.#translate = translate
-	})
-	#loading: boolean = true
+	defaultLanguage: string = 'quenya-tengwar-classical'
+	defaultTypeface: string = 'tengwar_guni_sindarin'
+
+	#loading: boolean
 	#resolve: typeof resolveFn
 	#translate: typeof translateFn
 
+	#slot: HTMLSlotElement
+	#span: HTMLSpanElement
+
 	constructor() {
 		super()
+		const shadowRoot = this.attachShadow({ mode: 'closed' })
+		this.#slot = Object.assign(document.createElement('slot'), { style: 'display: none;' })
+		this.#span = document.createElement('span')
+		shadowRoot.append(this.#slot, this.#span)
+
+		Component.dependencies.then(({ resolve, translate }) => {
+			this.#loading = false
+			this.#resolve = resolve
+			this.#translate = translate
+
+			shadowRoot.appendChild(
+				document.querySelector('link#queta-styles').cloneNode(),
+			)
+		})
+
+		this.#loading = true
+		this.#render()
+		Component.dependencies.then(() => {
+			this.#loading = false
+			this.#render()
+		})
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		this.#render()
 	}
 
-	// #renderChildren = (node: Element, language?: string, typeface?: string): HTMLCollection => {
-	// 	Array.from(node.children).forEach((child, index) => {
-	// 		switch (child.nodeType) {
-	// 			case Node.TEXT_NODE:
-	// 				const { success, translation } = this.#translate(child.innerText, language, typeface)
-	// 				if (success) {
-	// 					child.parentElement.innerText = translation
-	// 				}
-	// 		}
-	// 		// } else if (typeof child === 'number') {
-	// 		// 	return child
-	// 		// } else if (child?.props?.children) {
-	// 		// 	const grandChildren = child.props.children
-	// 		// 	const Type = child.type
-	// 		// return (
-	// 		// 	<Type key={index} {...child.props}>
-	// 		// 		{this.#renderChildren(
-	// 		// 			Array.isArray(grandChildren)
-	// 		// 				? grandChildren
-	// 		// 				: [grandChildren],
-	// 		// 		)}
-	// 		// 	</Type>
-	// 		// )
-	// 		// }
-	// 	})
-	// }
+	#renderChildren = (
+		source: Element,
+		target: Element,
+		language?: string,
+		typeface?: string,
+	): void => {
+		Array.from(source.childNodes).forEach(child => {
+			if (child instanceof Text) {
+				const { success, translation } = this.#translate(child.data, language, typeface)
+				target.appendChild(new Text(success ? translation : child.data))
+			}
+			// } else if (typeof child === 'number') {
+			// 	return child
+			// } else if (child?.props?.children) {
+			// 	const grandChildren = child.props.children
+			// 	const Type = child.type
+			// return (
+			// 	<Type key={index} {...child.props}>
+			// 		{this.#renderChildren(
+			// 			Array.isArray(grandChildren)
+			// 				? grandChildren
+			// 				: [grandChildren],
+			// 		)}
+			// 	</Type>
+			// )
+			// }
+		})
+	}
 
 	#render = (): void => {
 		const className = this.getAttribute('class') ?? ''
-		const language = this.getAttribute('lang') ?? ''
-		const typeface = this.getAttribute('typeface') ?? ''
-		const { charset, mode } = this.#loading
-			? {} as ITranslator
-			: this.#resolve(language, typeface)
 
-		this.className = [
-			'queta',
-			className,
-			mode?.name,
-			charset?.name,
-			this.#loading && 'loading',
-		].filter(Boolean).join(' ')
-
-		if (!this.#loading) {
-			const { success, translation } = this.#translate(this.innerText, language, typeface)
-			if (success) {
-				this.innerText = translation
-			}
+		if (this.#loading) {
+			this.#span.innerHTML = ''
+			this.#span.className = 'queta loading'
+			return
 		}
 
-		// return (
-		// 	<div className={classes}>
-		// 		{!loading && this.#renderChildren(this)}
-		// 	</div>
-		// )
+		const { charset, mode } = this.#resolve(
+			this.getAttribute('lang') ?? this.defaultLanguage,
+			this.getAttribute('typeface') ?? this.defaultTypeface,
+		)
+		const language = mode?.name
+		const typeface = charset?.name
+
+		this.#span.innerHTML = ''
+		this.#span.className = ['queta', className, language, typeface].filter(Boolean).join(' ')
+		this.#renderChildren(this, this.#span, language, typeface)
 	}
 }
 
