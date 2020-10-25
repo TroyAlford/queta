@@ -85,8 +85,6 @@ class Component extends HTMLElement {
 	}
 
 	#render = (): void => {
-		const className = this.getAttribute('class') ?? ''
-
 		if (this.#loading) {
 			this.#span.innerHTML = ''
 			this.#span.className = 'queta loading'
@@ -101,7 +99,7 @@ class Component extends HTMLElement {
 		const typeface = charset?.name
 
 		this.#span.innerHTML = ''
-		this.#span.className = ['queta', className, language, typeface].filter(Boolean).join(' ')
+		this.#span.className = ['queta', language, typeface].filter(Boolean).join(' ')
 		this.#renderChildren(this, this.#span, language, typeface)
 	}
 }
