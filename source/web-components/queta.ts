@@ -14,6 +14,7 @@ class Component extends HTMLElement {
 	defaultTypeface: string = 'tengwar_guni_sindarin'
 
 	#loading: boolean
+	#mutationObserver: MutationObserver
 	#resolve: typeof resolveFn
 	#translate: typeof translateFn
 
@@ -26,6 +27,9 @@ class Component extends HTMLElement {
 		this.#slot = Object.assign(document.createElement('slot'), { style: 'display: none;' })
 		this.#span = document.createElement('span')
 		shadowRoot.append(this.#slot, this.#span)
+
+		this.#mutationObserver = new MutationObserver(() => this.#render())
+		this.#mutationObserver.observe(this, { childList: true, subtree: true })
 
 		Component.dependencies.then(({ resolve, translate }) => {
 			this.#loading = false
@@ -47,8 +51,8 @@ class Component extends HTMLElement {
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (['language', 'typeface'].includes(name) && oldValue !== newValue) {
-		this.#render()
-	}
+			this.#render()
+		}
 	}
 
 	#renderChildren = (
