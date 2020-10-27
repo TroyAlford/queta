@@ -1,4 +1,4 @@
-(self["webpackChunkqueta"] = self["webpackChunkqueta"] || []).push([[769],{
+(self["webpackChunkqueta"] = self["webpackChunkqueta"] || []).push([[532],{
 
 /***/ 783:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
@@ -270,7 +270,7 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
     if(true) {
-      // 1603785303175
+      // 1603786812882
       var cssReload = __webpack_require__(783)(module.id, {"hmr":true,"locals":false});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -280,4 +280,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=queta-769.js.map
+//# sourceMappingURL=queta-styles.js.map

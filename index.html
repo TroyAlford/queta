@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>queta docs</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+	<script defer src="queta-web-components.js"></script>
+</head>
+<body>
+	<h1>Inlined</h1>
+	<div>
+		This is some inline <blackspeech-text>blackspeech</blackspeech-text> text that should
+		wrap well with other <adunaic-text>adunaic</adunaic-text> or <khuzdul-text>khuzdul</khuzdul-text>
+		or <runic-text>runic</runic-text> or whatnot.
+	</div>
+
+	<h1>Queta</h1>
+	<queta-text>
+		<div>Ai ! laurië lantar lassi súrinen ,</div>
+		<div>yéni únótimë ve rámar aldaron !</div>
+		<div>Yéni ve lintë yuldar avánier</div>
+		<div>mi oromardi lissë-miruvóreva</div>
+		<div>Andúnë pella , Vardo tellumar</div>
+		<div>nu luini yassen tintilar i eleni</div>
+		<div>ómaryo airetári-lírinen .</div>
+
+		<div>Sí man i yulma nin enquantuva ?</div>
+	</queta-text>
+
+	<h1>Adunaic</h1>
+	<adunaic-text>
+		<div>Agannālō burōda nēnud ...</div>
+		<div>Ēphalak īdōn Yōzāyan .</div>
+		<div>Ēphal ēphalak īdōn hi-Akallabēth .</div>
+	</adunaic-text>
+
+	<h1>Black Speech</h1>
+	<blackspeech-text>
+		<div>≤Ash|nazg|durbatulûk, ash|nazg|gimbatul≥</div>
+		<div>ash|nazg|thrakatulûk, agh|burzum-ishi|krimpatul</div>
+	</blackspeech-text>
+
+	<h1>Khuzdul</h1>
+	<khuzdul-text>
+		<div>/Balin Fundinul/</div>
+		<div>/Uzbad|Khazad|Dûmu/</div>
+	</khuzdul-text>
+
+	<h1>Runic</h1>
+	<runic-text>
+		<div>Sofą ek né máttak</div>
+		<div>sævař beðjum ą́</div>
+		<div>fugls jarmi fyrir ;</div>
+		<div>sá mik vekř ,</div>
+		<div>eř af víði kemř ,</div>
+		<div>morgun hverjąn mář .</div>
+	</runic-text>
+</body>
+</html>

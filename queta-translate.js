@@ -1,4 +1,4 @@
-(self["webpackChunkqueta"] = self["webpackChunkqueta"] || []).push([[747,680],{
+(self["webpackChunkqueta"] = self["webpackChunkqueta"] || []).push([[498],{
 
 /***/ 228:
 /***/ ((module) => {
@@ -125,7 +125,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var glaemscribe = null;
 var modes = [];
-var dependencies = Promise.all([__webpack_require__.e(/* import() */ 272).then(__webpack_require__.bind(__webpack_require__, 272)), __webpack_require__.e(/* import() */ 769).then(__webpack_require__.bind(__webpack_require__, 769))]).then(function (_ref) {
+var dependencies = Promise.all([__webpack_require__.e(/* import() | glaemscribe */ 459).then(__webpack_require__.bind(__webpack_require__, 272)), __webpack_require__.e(/* import() | styles */ 532).then(__webpack_require__.bind(__webpack_require__, 769))]).then(function (_ref) {
   var _ref2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_ref, 1),
       gs = _ref2[0]["default"];
 
@@ -177,4 +177,4 @@ var translate = function translate(text, language, typeface) {
 /***/ })
 
 }]);
-//# sourceMappingURL=queta-747.js.map
+//# sourceMappingURL=queta-translate.js.map

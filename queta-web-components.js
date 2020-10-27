@@ -680,7 +680,7 @@ function createComponent(options) {
     }]);
 
     return Component;
-  }( /*#__PURE__*/wrapNativeSuper_default()(HTMLElement))), defineProperty_default()(_class, "dependencies", __webpack_require__.e(/* import() */ 680).then(__webpack_require__.bind(__webpack_require__, 747)).then(function (module) {
+  }( /*#__PURE__*/wrapNativeSuper_default()(HTMLElement))), defineProperty_default()(_class, "dependencies", __webpack_require__.e(/* import() | translate */ 498).then(__webpack_require__.bind(__webpack_require__, 747)).then(function (module) {
     return module.dependencies.then(function () {
       return {
         resolve: module.resolve,
@@ -795,7 +795,7 @@ function createComponent(options) {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "queta-" + chunkId + ".js";
+/******/ 			return "queta-" + {"459":"glaemscribe","498":"translate","532":"styles"}[chunkId] + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -815,7 +815,7 @@ function createComponent(options) {
 /******/ 			// return url for filenames not based on template
 /******/ 			if (chunkId === 870) return "queta.css";
 /******/ 			// return url for filenames based on template
-/******/ 			return "queta." + chunkId + ".css";
+/******/ 			return "queta." + {"459":"glaemscribe","498":"translate","532":"styles"}[chunkId] + ".css";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -826,7 +826,7 @@ function createComponent(options) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "339f738be85dd64ea72d"
+/******/ 		__webpack_require__.h = () => "3a1da326b87b8d879b75"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -1307,7 +1307,7 @@ function createComponent(options) {
 /******/ 		};
 /******/ 		
 /******/ 		__webpack_require__.f.miniCss = (chunkId, promises) => {
-/******/ 			var cssChunks = {"769":1};
+/******/ 			var cssChunks = {"532":1};
 /******/ 			if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 			else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 				promises.push(installedCssChunks[chunkId] = loadStylesheet(chunkId).then(() => {

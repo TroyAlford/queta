@@ -342,7 +342,7 @@ var Queta = /*#__PURE__*/function (_Component) {
   return Queta;
 }(react__WEBPACK_IMPORTED_MODULE_8__.Component);
 
-_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(Queta, "dependencies", __webpack_require__.e(/* import() */ 747).then(__webpack_require__.bind(__webpack_require__, 747)).then(function (module) {
+_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(Queta, "dependencies", __webpack_require__.e(/* import() | translate */ 498).then(__webpack_require__.bind(__webpack_require__, 747)).then(function (module) {
   return module.dependencies.then(function () {
     return {
       resolve: module.resolve,
@@ -449,7 +449,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__804__;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "queta-" + chunkId + ".js";
+/******/ 			return "queta-" + {"459":"glaemscribe","498":"translate","532":"styles"}[chunkId] + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -469,7 +469,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__804__;
 /******/ 			// return url for filenames not based on template
 /******/ 			if (chunkId === 853) return "queta.css";
 /******/ 			// return url for filenames based on template
-/******/ 			return "queta." + chunkId + ".css";
+/******/ 			return "queta." + {"459":"glaemscribe","498":"translate","532":"styles"}[chunkId] + ".css";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -480,7 +480,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__804__;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "339f738be85dd64ea72d"
+/******/ 		__webpack_require__.h = () => "3a1da326b87b8d879b75"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -961,7 +961,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__804__;
 /******/ 		};
 /******/ 		
 /******/ 		__webpack_require__.f.miniCss = (chunkId, promises) => {
-/******/ 			var cssChunks = {"769":1};
+/******/ 			var cssChunks = {"532":1};
 /******/ 			if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 			else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 				promises.push(installedCssChunks[chunkId] = loadStylesheet(chunkId).then(() => {
