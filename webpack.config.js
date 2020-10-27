@@ -17,7 +17,7 @@ const include = [
 
 module.exports = {
 	devServer: {
-		contentBase: './source',
+		contentBase: './docs',
 		historyApiFallback: true,
 		hot: true,
 		injectHot: true,
@@ -26,7 +26,6 @@ module.exports = {
 	},
 	devtool: 'source-map',
 	entry: {
-		'queta-docs': `${__dirname}/source/docs/index.tsx`,
 		'queta-react': `${__dirname}/source/react/Queta.tsx`,
 		'queta-web-components': `${__dirname}/source/web-components/index.ts`,
 	},
@@ -71,7 +70,7 @@ module.exports = {
 		],
 	},
 	output: {
-		chunkFilename: '[name].[id].js',
+		chunkFilename: PRODUCTION ? 'chunk-[name].min.js' : 'chunk-[name].js',
 		filename: PRODUCTION ? '[name].min.js' : '[name].js',
 		library: 'react-glaemscribe',
 		libraryTarget: 'umd',

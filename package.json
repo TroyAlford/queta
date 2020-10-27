@@ -5,7 +5,11 @@
   "main": "build/react-glaemscribe.min.js",
   "repository": "git@github.com:TroyAlford/react-glaemscribe.git",
   "author": "Troy Alford <troy@troyalford.com>",
-  "license": "AGPL-3.0",
+	"license": "AGPL-3.0",
+	"files": [
+		"dist",
+		"source"
+	],
   "dependencies": {},
   "externals": {
     "react": "React",

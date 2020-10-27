@@ -1,6 +1,4 @@
 **/.cache
-**/dist
-**/docs/build
 **/node_modules
 **/temp
 **/yarn-error.log
