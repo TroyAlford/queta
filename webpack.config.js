@@ -85,7 +85,7 @@ module.exports = {
 				new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENVIRONMENT) }),
 				new webpack.optimize.ModuleConcatenationPlugin(),
 			]
-			: [new webpack.HotModuleReplacementPlugin()],
+			: [],
 		new PluginExtractCSS({
 			attributes: {
 				id: 'queta-styles',
@@ -93,6 +93,7 @@ module.exports = {
 			chunkFilename: 'queta.[name].css',
 			filename: 'queta.css',
 			ignoreOrder: true,
+			publicPath: './',
 		}),
 	],
 	resolve: {
