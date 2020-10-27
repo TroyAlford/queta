@@ -12,15 +12,14 @@
     "react-dom": "ReactDOM"
   },
   "scripts": {
-    "build-prod": "NODE_ENV=production yarn build",
-    "build": "yarn webpack",
+    "build": "yarn concurrently -n dev,prod -c yellow,red \"yarn build:dev\" \"yarn build:prod\"",
+    "build:dev": "yarn webpack",
+    "build:prod": "NODE_ENV=production yarn webpack",
     "clean": "rm -rf .cache temp dist",
     "develop": "yarn clean && yarn gulp && yarn webpack serve --mode development --env development",
-    "postbuild": "yarn clean",
-    "postdevelop": "yarn clean",
     "postversion": "git push origin HEAD && git push origin HEAD --tags",
     "prebuild": "yarn clean && yarn gulp",
-    "predevelop": "yarn clean && yarn gulp",
+    "predevelop": "yarn prebuild",
     "preversion": "yarn build & yarn build-prod && git add -A ./build",
     "test": "jest"
   },
@@ -45,6 +44,7 @@
     "@typescript-eslint/parser": "^4.6.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
+    "concurrently": "^5.3.0",
     "css-loader": "^5.0.0",
     "css-minimizer-webpack-plugin": "^1.1.5",
     "enzyme": "^3.11.0",
@@ -82,13 +82,14 @@
     "stylelint-scss": "^3.18.0",
     "stylelint-selector-no-empty": "^1.0.7",
     "stylelint-value-no-unknown-custom-properties": "^3.0.0",
+    "terser-webpack-plugin": "^5.0.1",
     "typescript": "^4.0.5",
     "webpack": "^5.2.0",
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
-	},
-	"resolutions": {
-		"chokidar": "^3",
-		"core-js": "^3"
-	}
+  },
+  "resolutions": {
+    "chokidar": "^3",
+    "core-js": "^3"
+  }
 }

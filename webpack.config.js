@@ -2,11 +2,11 @@
 const path = require('path')
 const PluginMinimizeCSS = require('css-minimizer-webpack-plugin')
 const PluginExtractCSS = require('mini-css-extract-plugin')
+const PluginTerser = require('terser-webpack-plugin')
 const webpack = require('webpack')
 
 const ENVIRONMENT = process.env.NODE_ENV
 const PRODUCTION = ENVIRONMENT === 'production'
-const SOURCEMAP = !PRODUCTION || process.env.SOURCEMAP
 
 const include = [
 	/node_modules\/glaemscribe/,
@@ -24,7 +24,7 @@ module.exports = {
 		port: 1234,
 		watchContentBase: true,
 	},
-	devtool: SOURCEMAP ? 'source-map' : 'none',
+	devtool: 'source-map',
 	entry: {
 		'queta-docs': `${__dirname}/source/docs/index.tsx`,
 		'queta-react': `${__dirname}/source/react/Queta.tsx`,
@@ -64,9 +64,10 @@ module.exports = {
 		}],
 	},
 	optimization: {
-		minimize: true,
+		minimize: PRODUCTION,
 		minimizer: [
 			new PluginMinimizeCSS(),
+			new PluginTerser(),
 		],
 	},
 	output: {
@@ -83,11 +84,6 @@ module.exports = {
 			? [
 				new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENVIRONMENT) }),
 				new webpack.optimize.ModuleConcatenationPlugin(),
-				new webpack.optimize.UglifyJsPlugin({
-					minimize: true,
-					output: { comments: false, semicolons: false },
-					sourceMap: SOURCEMAP,
-				}),
 			]
 			: [new webpack.HotModuleReplacementPlugin()],
 		new PluginExtractCSS({
