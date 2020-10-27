@@ -16,7 +16,7 @@
 		"resolveJsonModule": true,
 		"rootDir": ".",
 		"target": "ESNext",
-		"typeRoots": ["node_modules/@types", "source/types"]
+		"typeRoots": ["node_modules/@types", "types"]
 	},
 	"include": ["**/*.d.ts", "**/*.ts", "**/*.tsx"]
 }
