@@ -16,13 +16,14 @@
     "react-dom": "ReactDOM"
   },
   "scripts": {
-    "build": "yarn concurrently -n dev,prod -c yellow,red \"yarn build:dev\" \"yarn build:prod\"",
-    "build:dev": "yarn webpack",
+    "build": "yarn concurrently -n dev,prod,docs -c yellow,red,grey \"yarn build:dev\" \"yarn build:prod\" \"yarn build:docs\"",
+		"build:dev": "yarn webpack",
+		"build:docs": "mkdir -p ./dist && cp ./source/docs/* dist/",
 		"build:prod": "NODE_ENV=production yarn webpack",
     "clean": "rm -rf .cache temp dist",
     "develop": "yarn prebuild && yarn build:dev serve",
-    "prebuild": "yarn clean && yarn gulp",
-		"publish:docs": "yarn build && cp ./source/docs/* dist && git subtree push --prefix dist origin gh-pages",
+		"prebuild": "yarn clean && yarn gulp",
+		"publish:docs": "git subtree push --prefix dist origin gh-pages",
     "test": "jest"
   },
   "peerDependencies": {
