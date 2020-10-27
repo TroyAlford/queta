@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"allowJs": false,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
+		"checkJs": false,
+		"esModuleInterop": true,
+		"importHelpers": true,
+		"jsx": "react",
+		"lib": ["ESNext", "DOM"],
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"paths": {
+			"~*": ["./source/*"]
+		},
+		"resolveJsonModule": true,
+		"rootDir": ".",
+		"target": "ESNext",
+		"typeRoots": ["node_modules/@types", "types"]
+	},
+	"include": ["**/*.d.ts", "**/*.ts", "**/*.tsx"]
+}

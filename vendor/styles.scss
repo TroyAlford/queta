@@ -1,0 +1,55 @@
+/* stylelint-disable font-family-name-quotes */
+.queta {
+	font-size: 1em;
+	line-height: 1em;
+
+	&.loading::after {
+		content: 'Loading...';
+		font-style: italic;
+		opacity: .75;
+	}
+
+	// Unicode fonts
+	&.tengwar_guni_annatar {
+		font-family: 'TengwarAnnatarGlaemunicode';
+
+		&.bold { font-family: 'TengwarAnnatarGlaemunicodeBold'; }
+		&.italic { font-family: 'TengwarAnnatarGlaemunicodeItalic'; }
+	}
+
+	&.tengwar_guni_eldamar { font-family: 'TengwarEldamarGlaemunicode'; }
+	&.tengwar_guni_elfica { font-family: 'TengwarElficaGlaemunicode'; }
+	&.tengwar_guni_parmaite { font-family: 'TengwarParmaiteGlaemunicode'; }
+	&.tengwar_guni_sindarin { font-family: 'TengwarSindarinGlaemunicode'; }
+
+	// Legacy fonts
+	&.sarati_eldamar {
+		font-family: 'SaratiEldamarRTLB Glaemscrafu';
+		font-feature-settings: 'kern' 1;
+		text-rendering: optimizeLegibility;
+	}
+	&.tengwar_ds_annatar {
+		font-family: 'TengwarAnnatarGlaemscrafu';
+
+		&.bold { font-family: 'TengwarAnnatarGlaemscrafuBold'; }
+		&.italic { font-family: 'TengwarAnnatarGlaemscrafuItalic'; }
+	}
+	&.tengwar_ds_eldamar { font-family: 'Tengwar Eldamar Glaemscrafu'; }
+	&.tengwar_ds_elfica { font-family: 'Tengwar Elfica Glaemscrafu'; }
+	&.tengwar_ds_parmaite { font-family: 'Tengwar Parmaite Glaemscrafu'; }
+	&.tengwar_ds_sindarin { font-family: 'Tengwar Sindarin Glaemscrafu'; }
+
+	// Other
+	&.tengwar_freemono { font-family: 'FreeMonoTengwar'; }
+	&.tengwar_telcontar { font-family: 'TengwarTelcontarOpentype'; }
+
+	&.cirth_ds {
+		font-family: 'Cirth Erebor';
+		font-size: .8em;
+	}
+	&.unicode_runes {
+		bottom: .1em; // stylelint-disable
+		font-family: 'Pfeffer Mediaeval';
+		position: relative;
+	}
+}

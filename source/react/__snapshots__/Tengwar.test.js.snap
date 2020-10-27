@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tengwar defaults to quenya|tengwar|elfica 1`] = `"<span class=\\"glaemscribe language-adunaic-tengwar-glaemscrafu writing-tengwar typeface-elfica\\"></span>"`;
+
+exports[`tengwar transpiles nested children & their contents 1`] = `"<span class=\\"glaemscribe language-adunaic-tengwar-glaemscrafu writing-tengwar typeface-elfica\\">t%5#8 1T7T3<i>\`M81 yEjE7U5</i><b>\`C4^\`B5</b>t%5#8 yEjE7U5</span>"`;
+
+exports[`tengwar transpiles single child string contents 1`] = `"<span class=\\"glaemscribe language-adunaic-tengwar-glaemscrafu writing-tengwar typeface-elfica\\">t%5#8 1T7T3</span>"`;

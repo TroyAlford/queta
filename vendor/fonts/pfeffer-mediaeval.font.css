@@ -1,0 +1,12 @@
+@font-face {
+	font-display: swap; /* stylelint-disable-line */
+	font-family: 'Pfeffer Mediaeval';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Pfeffer Mediæval'),
+		local('PfefferMediaeval'),
+		url('PfefferMediaeval.woff') format('woff'),
+		url('PfefferMediaeval.ttf') format('truetype'),
+		url('PfefferMediaeval.svg#PfefferMediaeval') format('svg');
+}
+
