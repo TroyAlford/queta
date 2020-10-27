@@ -17,12 +17,13 @@ const include = [
 
 module.exports = {
 	devServer: {
-		contentBase: './docs',
+		contentBase: './source/docs',
 		historyApiFallback: true,
 		hot: true,
 		injectHot: true,
 		port: 1234,
 		watchContentBase: true,
+		writeToDisk: true,
 	},
 	devtool: 'source-map',
 	entry: {
@@ -70,9 +71,9 @@ module.exports = {
 		],
 	},
 	output: {
-		chunkFilename: PRODUCTION ? 'chunk-[name].min.js' : 'chunk-[name].js',
+		chunkFilename: PRODUCTION ? 'queta-[name].min.js' : 'queta-[name].js',
 		filename: PRODUCTION ? '[name].min.js' : '[name].js',
-		library: 'react-glaemscribe',
+		library: 'queta',
 		libraryTarget: 'umd',
 		path: path.resolve(__dirname, 'dist'),
 		publicPath: './',
@@ -89,8 +90,8 @@ module.exports = {
 			attributes: {
 				id: 'queta-styles',
 			},
-			chunkFilename: 'react-glaemscribe.[id].css',
-			filename: 'react-glaemscribe.css',
+			chunkFilename: 'queta.[id].css',
+			filename: 'queta.css',
 			ignoreOrder: true,
 		}),
 	],
