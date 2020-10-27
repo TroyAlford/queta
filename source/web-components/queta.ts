@@ -18,11 +18,12 @@ function createComponent(options: TOptions) {
 	const settings: TOptions = { ...defaultOptions, ...options }
 
 	return class Component extends HTMLElement {
-		private static dependencies = import('~/translate/translate')
-			.then(module => module.dependencies.then(() => ({
-				resolve: module.resolve,
-				translate: module.translate,
-			})))
+		private static dependencies =
+			import(/* webpackChunkName: 'translate' */ '~/translate/translate')
+				.then(module => module.dependencies.then(() => ({
+					resolve: module.resolve,
+					translate: module.translate,
+				})))
 
 		#loading: boolean
 		#mutationObserver: MutationObserver

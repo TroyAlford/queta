@@ -90,7 +90,7 @@ module.exports = {
 			attributes: {
 				id: 'queta-styles',
 			},
-			chunkFilename: 'queta.[id].css',
+			chunkFilename: 'queta.[name].css',
 			filename: 'queta.css',
 			ignoreOrder: true,
 		}),

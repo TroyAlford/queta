@@ -20,7 +20,7 @@ type TState = {
 }
 
 export class Queta extends Component<TProps, TState> {
-	private static dependencies = import('~/translate/translate')
+	private static dependencies = import(/* webpackChunkName: 'translate' */ '~/translate/translate')
 		.then(module => module.dependencies.then(() => ({
 			resolve: module.resolve,
 			translate: module.translate,

@@ -15,8 +15,10 @@ let glaemscribe: Glaemscribe.default = null
 let modes: Glaemscribe.Mode[] = []
 
 export const dependencies = Promise.all([
-	import('../../temp/glaemscribe.js') as Promise<{ default: Glaemscribe.default }>,
-	import('../../temp/glaemscribe.scss'),
+	import(
+		/* webpackChunkName: 'glaemscribe' */ '../../temp/glaemscribe.js'
+	) as Promise<{ default: Glaemscribe.default }>,
+	import(/* webpackChunkName: 'styles' */ '../../temp/glaemscribe.scss'),
 ]).then(([{ default: gs }]) => {
 	glaemscribe = gs
 	glaemscribe.resource_manager.load_charsets()
