@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires,global-require,no-undef */
-const path = require('path')
-const PluginMinimizeCSS = require('css-minimizer-webpack-plugin')
-const PluginExtractCSS = require('mini-css-extract-plugin')
-const PluginTerser = require('terser-webpack-plugin')
-const webpack = require('webpack')
+import path from 'path'
+import PluginMinimizeCSS from 'css-minimizer-webpack-plugin'
+import PluginExtractCSS from 'mini-css-extract-plugin'
+import PluginTerser from 'terser-webpack-plugin'
+import webpack from 'webpack'
 
 const ENVIRONMENT = process.env.NODE_ENV
 const PRODUCTION = ENVIRONMENT === 'production'
@@ -14,6 +14,13 @@ const include = [
 	`${__dirname}/temp/`,
 	`${__dirname}/vendor/`,
 ]
+
+const FONT = (test: RegExp, mimetype: string) => ({
+	include,
+	loader: 'file-loader',
+	options: { limit: 100_000, name: 'assets/[name].[ext]', outputPath: 'fonts/', mimetype },
+	test,
+})
 
 module.exports = {
 	devServer: {
@@ -46,10 +53,9 @@ module.exports = {
 			loader: 'babel-loader',
 			test: /\.[jt]sx?$/,
 		}, {
-			include,
-			test: /\.scss$/,
+			include, test: /\.scss$/,
 			use: [
-				{ loader: PluginExtractCSS.loader, options: { hmr: !PRODUCTION } },
+				PluginExtractCSS.loader,
 				'css-loader',
 				{ loader: 'sass-loader',
 					options: {
@@ -59,14 +65,8 @@ module.exports = {
 				},
 			],
 		}, {
-			include,
-			loader: 'file-loader',
-			options: {
-				limit: 100000,
-				name: 'assets/[name].[ext]',
-				outputPath: 'fonts/',
-			},
 			test: /\.(woff2?|eot|ttf|svg)#?/,
+			type: 'asset/resource',
 		}],
 	},
 	optimization: {
@@ -99,7 +99,6 @@ module.exports = {
 			chunkFilename: 'queta.[name].css',
 			filename: 'queta.css',
 			ignoreOrder: true,
-			publicPath: './',
 		}),
 	],
 	resolve: {
