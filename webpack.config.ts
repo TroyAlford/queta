@@ -82,7 +82,7 @@ module.exports = {
 		library: 'queta',
 		libraryTarget: 'umd',
 		path: path.resolve(__dirname, 'dist'),
-		publicPath: './',
+		publicPath: 'auto',
 		umdNamedDefine: true,
 	},
 	plugins: [

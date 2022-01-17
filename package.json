@@ -1,6 +1,6 @@
 {
   "name": "queta",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React component to render J.R.R. Tolkein languages using Glaemscribe",
   "main": "dist/queta-react.js",
   "repository": "git@github.com:TroyAlford/queta.git",
