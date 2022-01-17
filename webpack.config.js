@@ -17,13 +17,18 @@ const include = [
 
 module.exports = {
 	devServer: {
-		contentBase: './source/docs',
+		compress: true,
+		devMiddleware: {
+			index: true,
+			publicPath: '/',
+			writeToDisk: true,
+		},
 		historyApiFallback: true,
 		hot: true,
-		injectHot: true,
 		port: 1234,
-		watchContentBase: true,
-		writeToDisk: true,
+		static: {
+			directory: path.join(__dirname, './source/docs'),
+		},
 	},
 	devtool: 'source-map',
 	entry: {
@@ -34,6 +39,7 @@ module.exports = {
 		react: 'React',
 		'react-dom': 'ReactDOM',
 	},
+	mode: PRODUCTION ? 'production' : 'development',
 	module: {
 		rules: [{
 			exclude: /node_modules/,
